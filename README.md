@@ -1,5 +1,8 @@
 # Getting Started with the AVM Hackathon 
 
+Install Prerequisites
+npm install
+
 ## Available Scripts
 
 In the project directory, you can run:
