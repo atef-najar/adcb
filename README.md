@@ -1,11 +1,10 @@
 # Getting Started with the AVM Hackathon 
 
-Install Prerequisites
+**Install Prerequisites**
 npm install
 
 ## Available Scripts
-
-In the project directory, you can run:
+Navigate to the project directory, you can run:
 
 ### `npm start`
 
