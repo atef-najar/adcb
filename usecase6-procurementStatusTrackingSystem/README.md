@@ -1,4 +1,13 @@
-##Overview:
+# Getting Started with the AVM Hackathon 
+
+**Install Prerequisites**
+npm install
+
+## Available Scripts
+Navigate to the project directory, you can ru
+
+
+# Overview
 The **objective** of this challenge is to create an interactive solution that streamlines the process of checking the status of various procurements. 
 
 Participants will develop an application that takes input from a CSV file containing procurement numbers and their current statuses, and then utilizes a Large Language Model (LLM) API to determine actions or updates needed based on the current status of each procurement.
