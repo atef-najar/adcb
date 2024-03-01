@@ -128,6 +128,24 @@ Each object in the `messages` array should have the following properties:
 }
 ```
 
+### Supported Providers and Models
+- open_ai
+    - gpt-4
+    - gpt-3.5-turbo
+- cohere
+    - command
+    - command-nightly
+    - command-light
+    - command-light-nightly
+- anthropic
+    - anthropic.claude-v2
+    - anthropic.claude-v1
+- stability
+    - stability.stable-diffusion-xl-v0
+- meta
+    - meta.llama2-70b-chat-v1
+- amazon
+    - amazon.titan-text-express-v1
 
 
 
