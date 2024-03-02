@@ -12,6 +12,7 @@ A future evolution would be directly integratign with the Ariba system via API's
 **Resources:**
 Documentation for the LLM API.
 Sample CSV files for testing your application.
+Source code of the initial application.
 
 **Input:**
 Your application should accept a CSV file as input. The CSV file will have at least two fields:
