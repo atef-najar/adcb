@@ -1,7 +1,7 @@
 # USE Case 6 : Procurement Status Agent
 
 **Overview:**
-The objective of this challenge is to create an interactive solution that streamlines the process of checking the status of various procurements. 
+The objective of this challenge is to create an interactive solution that streamlines the process of checking the status of procurement within an organization.
 
 Participants will develop an application that takes input from a CSV file containing procurement numbers and their current statuses, and then utilizes a Large Language Model (LLM) API to determine actions or updates needed based on the current status of each procurement.
 
