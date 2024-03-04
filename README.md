@@ -64,8 +64,8 @@ Each object in the `messages` array should have the following properties:
 Each object in the `messages` array should have the following properties:
 - `temperature` (number, required): the temperature of the model.
 - `maxTokens` (number, required): the maximum number of tokens that the model will generate, this will include the context provided as well.
-- `fileKey` (string, optional): the name of the file used. This is optional only send this if you intend to use the model ```gpt-4-file```.
-- `fileBuffer` (number, optional): the file buffer encoded using base64. This is optional only send this if you intend to use the model ```gpt-4-file```.
+- `fileKey` (string, optional): the name of the file used. This is optional only send this if you intend to use the model ```gpt-4-file``` and provider ```file```.
+- `fileBuffer` (number, optional): the file buffer encoded using base64. This is optional only send this if you intend to use the model ```gpt-4-file``` and provider ```file```.
 
 #### Example First Message : `AVMCompletionMessageDto`:
 ```json
@@ -191,7 +191,7 @@ export default FileInputBase64WithName;
 #### Example `Complete Request Body` when using the file model.
 ```json
 {
-  "providerName": "open_ai",
+  "providerName": "file",
   "modelVersion": "gpt-4-file",
   "roomId": "12345",
   "messages": [
@@ -231,7 +231,8 @@ export default FileInputBase64WithName;
 - open_ai
     - gpt-4
     - gpt-3.5-turbo
-    - gpt-4-file
+- file
+  - gpt-4-file
 
 
 
