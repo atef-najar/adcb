@@ -30,11 +30,11 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
-# AVM Completion Secure Endpoint
+# AVM Completion Secure Endpoint. The behavior of the secure end point is slightly different than the regular endpoint.
+# Hint : Try embedding an email address in the text
 
 ## Endpoints
 `POST /avm-completion`
-
 `POST /avm-completion-secure`
 
 
@@ -67,10 +67,10 @@ Each object in the `messages` array should have the following properties:
 - `fileKey` (string, optional): the name of the file used. This is optional only send this if you intend to use the model ```gpt-4-file```.
 - `fileBuffer` (number, optional): the file buffer encoded using base64. This is optional only send this if you intend to use the model ```gpt-4-file```.
 
-#### Example `AVMCompletionMessageDto`:
+#### Example First Message : `AVMCompletionMessageDto`:
 ```json
 {
-  "content": "Example message content.",
+  "content": "Write me a sample blog post.",
   "role": "user"
 }
 ```
@@ -83,7 +83,7 @@ Each object in the `messages` array should have the following properties:
 }
 ```
 
-#### Example `Complete Request Body`
+#### Example `Complete Request Body` with expanded messages
 ```json
 {
   "providerName": "open_ai",
@@ -110,7 +110,7 @@ Each object in the `messages` array should have the following properties:
 }
 ```
 
-**Description:** Completion obtained successfully. The response includes details on whether any part of the request was blocked, warned, anonymized, or redacted due to containing sensitive information. If the endpoint without redaction was called, you will get a simple text string back.
+**Description:** In the example response below completion obtained successfully. The response includes details on whether any part of the request was blocked, warned, anonymized, or redacted due to containing sensitive information. If the endpoint without redaction was called, you will get a simple text string back.
 
 **Example Response:**
 ```json
