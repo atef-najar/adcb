@@ -1,11 +1,11 @@
 # Getting Started with the AVM Hackathon 
 
 **Install Prerequisites**
-npm install
+
 
 ## Available Scripts
 Navigate to the project directory, you can run:
-
+### `npm install`
 ### `npm start`
 
 Runs the app in the development mode.\
