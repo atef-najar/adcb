@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import MessageList from './components/MessageList';
-import MessageInput from './components/Input';
 import styled from '@emotion/styled';
 import { Container, Button, Box } from "@mui/material";
-import { GRAY_COLORS } from "./constants/colors";
+import { GRAY_COLORS } from '../constants/colors';
 
-import Settings from "./components/Settings";
 import { useNavigate } from 'react-router-dom';
+import MessageList from '../components/MessageList';
+import MessageInput from '../components/Input';
 
 const AppContainer = styled(Container)`
     margin-top: 120px;
@@ -19,7 +18,7 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const App = () => {
+const AiPoweredChat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
@@ -40,12 +39,8 @@ const App = () => {
     };
 
     const handleNavigate = () => {
-        navigate('/AiPoweredChat')
+        navigate('/')
     }
-
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
 
     const handleInputChange = (event) => {
         setMessage(event.target.value);
@@ -54,11 +49,10 @@ const App = () => {
     return (
         <>
             <Box display="flex" justifyContent="flex-end" margin={2}>
-                <Button onClick={handleNavigate} variant="contained" color="primary">AI Powered chat</Button>
+                <Button onClick={handleNavigate} variant="contained" color="primary">Home</Button>
             </Box>
             <AppContainer>
-                <h1>avm-genai-starter</h1>
-                <Settings handleOptionChange={handleOptionChange} selectedOption={selectedOption} />
+                <h1>avm-ai-poweredchat</h1>
                 <MessageList messages={messages} />
                 <MessageInput
                     message={message}
@@ -70,4 +64,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default AiPoweredChat;
