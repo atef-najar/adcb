@@ -65,6 +65,8 @@ Each object in the `messages` array should have the following properties:
 Each object in the `messages` array should have the following properties:
 - `temperature` (number, required): the temperature of the model.
 - `maxTokens` (number, required): the maximum number of tokens that the model will generate, this will include the context provided as well.
+- `fileKey` (string, optional): the name of the file used. This is optional only send this if you intend to use the model ```gpt-4-file```.
+- `fileBuffer` (number, optional): the file buffer encoded using base64. This is optional only send this if you intend to use the model ```gpt-4-file```.
 
 #### Example `AVMCompletionMessageDto`:
 ```json
@@ -101,7 +103,7 @@ Each object in the `messages` array should have the following properties:
 }
 ```
 
-**Description:** Completion obtained successfully. The response includes details on whether any part of the request was blocked, warned, anonymized, or redacted due to containing sensitive information. If the endpoint without redaction was called, you will get a simple text string back. 
+**Description:** Completion obtained successfully. The response includes details on whether any part of the request was blocked, warned, anonymized, or redacted due to containing sensitive information. If the endpoint without redaction was called, you will get a simple text string back.
 
 **Example Response:**
 ```json
@@ -128,6 +130,81 @@ Each object in the `messages` array should have the following properties:
 }
 ```
 
+**Example Response (when using image model):**
+```json
+{
+  "message": "iVBORw0KGgoAAAANSUhEUgAAAwAAAAIACAIAAAC6lJx...(restOfBase64String)"
+}
+```
+
+**Response:** the response will contain the base64 string of the message, below is an example of how you can render that in react using an img tag. In the example below response.message is the base64 returned from the api call.
+
+```html
+<img src={`data:image/jpeg;base64,${response.message}`} alt={'generated-image'} />
+```
+
+##
+##
+##
+## Using the gpt-4-file Model
+
+#### Example of how to get the base64 encoding of a file and the name of file:
+```jsx
+import React, { useState } from 'react';
+
+function FileInputBase64WithName() {
+  const [base64, setBase64] = useState(''); // State to hold the base64 string
+  const [fileName, setFileName] = useState(''); // State to hold the file name
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Get the file from the input
+    if (file) {
+      setFileName(file.name); // Set the file name
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64 = e.target.result;
+        setBase64(base64); // Update the state with the base64 string
+      };
+
+      reader.readAsDataURL(file); // Convert the file to base64
+    }
+  };
+
+  return (
+      <div>
+        <input type="file" onChange={handleFileChange} />
+      </div>
+  );
+}
+
+export default FileInputBase64WithName;
+```
+
+#### Example `Complete Request Body` when using the file model.
+```json
+{
+  "providerName": "open_ai",
+  "modelVersion": "gpt-4-file",
+  "roomId": "12345",
+  "messages": [
+    {
+      "content": "Summarize me this context",
+      "role": "user"
+    }
+  ],
+  "settings": {
+    "maxTokens": 1024,
+    "temperature": 0.5,
+    "fileKey": "name_of_the_file.csv",
+    "fileBuffer": "base64string"
+  }
+}
+```
+
+##
+##
+##
 ### Supported Providers and Models
 
 - amazon
@@ -147,6 +224,7 @@ Each object in the `messages` array should have the following properties:
 - open_ai
     - gpt-4
     - gpt-3.5-turbo
+    - gpt-4-file
 
 
 
