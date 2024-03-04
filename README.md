@@ -50,13 +50,12 @@ Processes the provided input and returns a completion. This endpoint is protecte
 
 ## Request Body Parameters
 The request body must contain the following fields:
-- `providerName` (string, required): Name of the provider.
-- `modelVersion` (string, optional): Version of the model being used.
-- `roomId` (string, optional): Identifier for the room, if applicable, this will be used for streaming the response.
+- `providerName` (string, required): Name of the LLM provider. e.g. amazon
+- `modelVersion` (string, optional): Version of the model being used. e.g. amazon.titan-text-express-v1
 - `messages` (array of `AVMCompletionMessageDto` objects, required): A list of messages related to the AVM completion.
 - `settings` (`AVMCompletionSettings` object, required): Settings for the AVM completion.
 
-### `AVMCompletionMessageDto` Object
+### `AVMCompletionMessageDto` Object. (Only use if sending context of the conversation)
 Each object in the `messages` array should have the following properties:
 - `content` (string, required): The content of the message.
 - `role` (string, required): The role associated with the message (e.g., "user", "system").
