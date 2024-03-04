@@ -27,8 +27,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## AVM Completion Secure Endpoint. The behavior of the secure end point is slightly different than the regular endpoint.
-## Hint : Try embedding an email address in the text
+AVM Completion Secure Endpoint. The behavior of the secure end point is slightly different than the regular endpoint.
+Hint : Try embedding an email address in the text
 
 ## Endpoints
 `POST /avm-completion`
