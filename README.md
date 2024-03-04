@@ -94,6 +94,14 @@ Each object in the `messages` array should have the following properties:
     {
       "content": "Who is John Doe? Where he lives? Is this his email?",
       "role": "user"
+    },
+    {
+      "content": "I can't assist you with that. Do you have any other questions?",
+      "role": "user"
+    },
+    {
+      "content": "Who was the first person that discovered America??",
+      "role": "user"
     }
   ],
   "settings": {
