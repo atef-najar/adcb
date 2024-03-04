@@ -69,14 +69,7 @@ const AiPoweredChat = () => {
             </Box>
             <AppContainer>
                 <h1>avm-ai-poweredchat</h1>
-                <Box display='flex' justifyContent='space-between' gap='1rem' >
-                    <Box width='100%' >
-                        <MessageList messages={messages} />
-                    </Box>
-                    <Box width='100%' >
-                        <MessageList messages={messages} />
-                    </Box>
-                </Box>
+                <MessageList messages={messages} />
                 <MessageInput
                     message={message}
                     onMessageChange={handleInputChange}
