@@ -20,7 +20,6 @@ const CodeConvertion = ({ handleCommandChange, selectedCommand }) => {
                 {Convertion.map(model =>
                     <MenuItem value={model.value}>{model.displayName}</MenuItem>
                 )}
-                <MenuItem value='Others'>Others</MenuItem>
             </Select>
         </FormControl>
     )

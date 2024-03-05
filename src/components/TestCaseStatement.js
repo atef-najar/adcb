@@ -20,7 +20,6 @@ const TestCaseStatement = ({ handleCommandChange, selectedCommand }) => {
                 {TestCases.map(model =>
                     <MenuItem value={model.value}>{model.displayName}</MenuItem>
                 )}
-                <MenuItem value='Others'>Others</MenuItem>
             </Select>
         </FormControl>
     )
