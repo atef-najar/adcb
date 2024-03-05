@@ -95,7 +95,7 @@ const CodeingAssistant = () => {
 
     return (
         <AppContainer>
-            <h1>avm-genai-starter</h1>
+            <h1>Code Assistant</h1>
 
             <Settings handleOptionChange={handleOptionChange} selectedOption={selectedOption} />
             <br />
