@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Paper, Typography } from '@mui/material';
 
-import { COLOR_SECONDARY, GRAY_COLORS} from "../constants/colors";
+import { COLOR_SECONDARY, GRAY_COLORS } from "../constants/colors";
 
 const MessageContainer = styled(Paper)(({ isuser }) => ({
     backgroundColor: isuser ? COLOR_SECONDARY : GRAY_COLORS.GRAY_100,
@@ -36,7 +36,7 @@ const MessageList = ({ messages }) => {
     return (
         <MessageListContainer>
             {messages?.map((message, index) => (
-                <Message key={index} text={message.text} isUser={message.isUser} />
+                <Message key={index} text={message.text.split('\n').map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>)} isUser={message.isUser} />
             ))}
         </MessageListContainer>
     );
