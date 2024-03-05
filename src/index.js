@@ -7,8 +7,8 @@ import UseCase2Sample from './usecase2-aipoweredchat/sample.js';
 import UseCase2Final from './usecase2-aipoweredchat/final.js';
 import UseCase3Sample from './usecase3-emailautomation/sample.js';
 import UseCase3Final from './usecase3-emailautomation/final.js';
-import UseCase5Final from './usecase5-contentgeneration/final.js';
-import UseCase5Sample from './usecase5-contentgeneration/sample.js';
+import UseCase5Final from './usecase5-codeassistant/final.js';
+import UseCase5Sample from './usecase5-codeassistant/sample.js';
 
 ReactDOM.render(
     <React.StrictMode>
