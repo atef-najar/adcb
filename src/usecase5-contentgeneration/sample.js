@@ -23,7 +23,7 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const CodeingAssistantSample = () => {
+const UseCase5Sample = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
@@ -104,4 +104,4 @@ const CodeingAssistantSample = () => {
     );
 }
 
-export default CodeingAssistantSample;
+export default UseCase5Sample;

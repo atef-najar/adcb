@@ -23,7 +23,7 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const CodeingAssistantMain = () => {
+const UseCase5Final = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
@@ -121,4 +121,4 @@ const CodeingAssistantMain = () => {
     );
 }
 
-export default CodeingAssistantMain;
+export default UseCase5Final;
