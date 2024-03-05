@@ -13,6 +13,12 @@ const MessageContainer = styled(Paper)(({ isuser }) => ({
   maxWidth: "80%", // Limits maximum width to 80% of parent container
   padding: 8, // Padding inside the container
   marginTop: 12, // Top margin
+  backgroundColor: isuser ? COLOR_SECONDARY : GRAY_COLORS.GRAY_100,
+  alignSelf: isuser ? 'end' : 'start',
+  width: 'fit-content',
+  maxWidth: '80%',
+  padding: 8,
+  marginTop: 12,
 }));
 
 // Styled component for the container that holds all messages

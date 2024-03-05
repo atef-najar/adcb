@@ -18,9 +18,10 @@ const AppContainer = styled(Container)`
 `;
 
 const UseCase2Sample = () => {
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [message, setMessage] = useState(''); // State variable for the user's message
+    const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
 
+    // Function to handle sending messages
     const handleSendMessage = () => {
         if (!message) return;
 
@@ -40,15 +41,15 @@ const UseCase2Sample = () => {
     };
 
     return (
-            <AppContainer>
-                <h1>avm-ai-poweredchat</h1>
-                <MessageList messages={messages} />
-                <MessageInput
-                    message={message}
-                    onMessageChange={handleInputChange}
-                    onSendMessage={handleSendMessage}
-                />
-            </AppContainer>
+        <AppContainer>
+            <h1>avm-ai-poweredchat</h1>
+            <MessageList messages={messages} />
+            <MessageInput
+                message={message}
+                onMessageChange={handleInputChange}
+                onSendMessage={handleSendMessage}
+            />
+        </AppContainer>
     );
 }
 
