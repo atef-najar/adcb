@@ -1,10 +1,9 @@
 import api from '../ApiConfig';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Container, Button, Box } from "@mui/material";
+import { Container,  Box } from "@mui/material";
 import { GRAY_COLORS } from '../constants/colors';
 
-import { useNavigate } from 'react-router-dom';
 import MessageList from '../components/MessageList';
 import MessageInput from '../components/Input';
 
@@ -18,11 +17,10 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const AiPoweredChat = () => {
+const UseCase2Final = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [amazonTitanMessages, setAmazonTitanMessages] = useState([]);
-    const navigate = useNavigate()
 
     const handleSendMessage = () => {
         if (!message) return;
@@ -75,19 +73,11 @@ const AiPoweredChat = () => {
         getAiResponse(requestDataAmazonTitan, setAmazonTitanMessages);
     };
 
-    const handleNavigate = () => {
-        navigate('/')
-    }
-
     const handleInputChange = (event) => {
         setMessage(event.target.value);
     };
 
     return (
-        <>
-            <Box display="flex" justifyContent="flex-end" margin={2}>
-                <Button onClick={handleNavigate} variant="contained" color="primary">Home</Button>
-            </Box>
             <AppContainer>
                 <h1>avm-ai-poweredchat</h1>
                 <Box display='flex' justifyContent='space-between' gap='1rem' >
@@ -106,8 +96,7 @@ const AiPoweredChat = () => {
                     onSendMessage={handleSendMessage}
                 />
             </AppContainer>
-        </>
     );
 }
 
-export default AiPoweredChat;
+export default UseCase2Final;
