@@ -1,15 +1,18 @@
-# USE Case 5 : Content Generation
+# Use Case 5 : Code Assistant Bot
 
 **Overview:**
-The objective of this challenge is to create a long form content like a blog, xxxx
+The objective of this challenge is to create a code assistant
 
 **Resources:**
 Documentation for the LLM API.
 Source code of the initial application.
-Example blog creation.
+Example code assistant.
 
 **Input:**
-Your application should accept a 
+Your application should accept blocks of code and help a developer with the following tasks
+1. Code Comments
+2. Code Translation (One language to Another)
+
 
 
 **Functionality:**
