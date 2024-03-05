@@ -39,13 +39,6 @@ const App = () => {
         }, 1000); // Mock response delay
     };
 
-    const handleNavigate = () => {
-        navigate('/AiPoweredChat')
-    }
-
-    const handleAssistant = () => {
-        navigate('/CodeingAssistant')
-    }
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
@@ -57,10 +50,7 @@ const App = () => {
 
     return (
         <>
-            <Box display="flex" justifyContent="flex-end" margin={2}>
-                <Button onClick={handleNavigate} variant="contained" color="primary">AI Powered chat</Button>
-                <Button onClick={handleAssistant} variant="contained" color="primary">Codeing Assistant</Button>
-            </Box>
+            
             <AppContainer>
                 <h1>avm-genai-starter</h1>
                 <Settings handleOptionChange={handleOptionChange} selectedOption={selectedOption} />
