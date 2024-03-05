@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AiPoweredChat from './usecase2-aipoweredchat/UseCase2-Solution1'
 import CodeingAssistant from './usecase5-contentgeneration/UseCase5_Solution1';
 import UseCase2Sample from './usecase2-aipoweredchat/sample.js';
 import UseCase2Final from './usecase2-aipoweredchat/final.js';
