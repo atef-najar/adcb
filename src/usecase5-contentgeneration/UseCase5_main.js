@@ -23,7 +23,7 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const CodeingAssistant = () => {
+const CodeingAssistantMain = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
@@ -121,4 +121,4 @@ const CodeingAssistant = () => {
     );
 }
 
-export default CodeingAssistant;
+export default CodeingAssistantMain;

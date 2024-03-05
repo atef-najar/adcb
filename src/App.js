@@ -44,7 +44,7 @@ const App = () => {
     }
 
     const handleAssistant = () => {
-        navigate('/CodeingAssistant')
+        navigate('/codeing_assistant_sample')
     }
 
     const handleOptionChange = (event) => {
