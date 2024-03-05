@@ -6,58 +6,105 @@ import { Container } from "@mui/material";
 import { GRAY_COLORS } from "./constants/colors";
 
 import Settings from "./components/Settings";
+import api from "./ApiConfig";
+import { SupportedModels } from "./constants/ai-models";
 
 const AppContainer = styled(Container)`
-    margin-top: 120px;
-    display: flex;
-    flex-direction: column;
-    max-width: 700px;
-    max-height: 80vh;
-    border-radius: 30px;
-    border: 1px solid ${GRAY_COLORS.GRAY_300};
-    overflow: hidden;
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  max-height: 80vh;
+  border-radius: 30px;
+  border: 1px solid ${GRAY_COLORS.GRAY_300};
+  overflow: hidden;
 `;
 
 const App = () => {
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [selectedOption, setSelectedOption] = useState({});
+  const [selectedProvider, setSelectedProvider] = useState({});
+  const [temperature, setTemperature] = useState(0.7);
+  const [maxTokens, setMaxTokens] = useState(1024);
 
-    const handleSendMessage = () => {
-        if (!message) return;
+  const getAiResponse = (requestData) => {
+    return api.post("/conversations/avm-completion", requestData);
+  };
 
-        // Add user message
-        setMessages([...messages, { text: message, isUser: true }]);
-        setMessage('');
+  const handleSendMessage = async () => {
+    if (!message) return;
 
-        // Mock AI response after a delay
-        setTimeout(() => {
-            const aiResponse = "This is a mock response from AI.";
-            setMessages(messages => [...messages, { text: aiResponse, isUser: false }]);
-        }, 1000); // Mock response delay
+    // Add user message
+    setMessages([...messages, { text: message, isUser: true }]);
+    setMessage("");
+
+    const requestData = {
+      providerName: selectedProvider,
+      modelVersion: selectedOption,
+      roomId: "12345",
+
+      messages: [...messages, { text: message, isUser: true }].map(
+        (message) => {
+          return {
+            content: message.text,
+            role: message.isUser ? "user" : "system",
+          };
+        },
+      ),
+      settings: {
+        maxTokens: maxTokens,
+        temperature: temperature,
+      },
     };
 
+    // Mock AI response after a delay
+    const aiResponse = await getAiResponse(requestData);
 
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
+    const {
+      data: { message: aiMessage },
+    } = aiResponse;
 
-    const handleInputChange = (event) => {
-        setMessage(event.target.value);
-    };
+    setMessages((messages) => [
+      ...messages,
+      { text: aiMessage, isUser: false },
+    ]);
+  };
 
-    return (
-            <AppContainer>
-                <h1>avm-genai-starter</h1>
-                <Settings handleOptionChange={handleOptionChange} selectedOption={selectedOption} />
-                <MessageList messages={messages} />
-                <MessageInput
-                    message={message}
-                    onMessageChange={handleInputChange}
-                    onSendMessage={handleSendMessage}
-                />
-            </AppContainer>
+
+  const handleOptionChange = (event) => {
+    const selectedModel = SupportedModels.find(
+      (model) => model.value === event.target.value,
     );
-}
+    setSelectedProvider(selectedModel.provider);
+    setSelectedOption(event.target.value);
+  };
+
+  const handleInputChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  return (
+
+      <AppContainer>
+        <h1>avm-genai-starter</h1>
+        <Settings
+          handleOptionChange={handleOptionChange}
+          selectedOption={selectedOption}
+          includeSliders={true}
+          temperature={temperature}
+          setTemperature={setTemperature}
+          maxTokens={maxTokens}
+          setMaxTokens={setMaxTokens}
+        />
+        <MessageList messages={messages} />
+        <MessageInput
+          message={message}
+          onMessageChange={handleInputChange}
+          onSendMessage={handleSendMessage}
+        />
+      </AppContainer>
+  );
+};
 
 export default App;
