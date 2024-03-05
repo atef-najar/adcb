@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Paper, Typography } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
 
 import { COLOR_SECONDARY, GRAY_COLORS } from "../constants/colors";
 
@@ -22,11 +23,42 @@ const MessageListContainer = styled(Box)`
     overflow: scroll;
 `;
 
+const StyledReactMarkdown = styled(ReactMarkdown)`
+  table {
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
+    border-color: inherit !important;
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    overflow: auto !important;
+  }
+
+  td,
+  th {
+    padding: 8px 16px !important;
+  }
+
+  tbody,
+  td,
+  tfoot,
+  th,
+  thead,
+  tr {
+    width: auto !important;
+    border-color: inherit !important;
+    border-style: solid !important;
+    border-width: 1.5px !important;
+  }
+`;
+
 const Message = ({ text, isUser }) => {
     return (
         <MessageContainer elevation={3} isuser={isUser ? 1 : 0}>
             <Typography variant="body1" component="p">
-                {text}
+                <StyledReactMarkdown>
+                    {text}
+                </StyledReactMarkdown>
             </Typography>
         </MessageContainer>
     );
@@ -34,11 +66,11 @@ const Message = ({ text, isUser }) => {
 
 const MessageList = ({ messages }) => {
     return (
-        <MessageListContainer>
-            {messages?.map((message, index) => (
-                <Message key={index} text={message.text.split('\n').map((line, index) => <React.Fragment key={index}>{line}<br /></React.Fragment>)} isUser={message.isUser} />
-            ))}
-        </MessageListContainer>
+      <MessageListContainer>
+        {messages?.map((message, index) => (
+          <Message key={index} text={message.text} isUser={message.isUser} />
+        ))}
+      </MessageListContainer>
     );
 }
 

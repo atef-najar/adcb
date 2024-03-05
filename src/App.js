@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import MessageList from './components/MessageList';
 import MessageInput from './components/Input';
 import styled from '@emotion/styled';
-import { Container, Button, Box } from "@mui/material";
+import { Container } from "@mui/material";
 import { GRAY_COLORS } from "./constants/colors";
 
 import Settings from "./components/Settings";
-import { useNavigate } from 'react-router-dom';
 
 const AppContainer = styled(Container)`
     margin-top: 120px;
@@ -23,7 +22,6 @@ const App = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
-    const navigate = useNavigate()
 
     const handleSendMessage = () => {
         if (!message) return;
@@ -39,13 +37,6 @@ const App = () => {
         }, 1000); // Mock response delay
     };
 
-    const handleNavigate = () => {
-        navigate('/AiPoweredChat')
-    }
-
-    const handleAssistant = () => {
-        navigate('/CodeingAssistant')
-    }
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
@@ -56,11 +47,6 @@ const App = () => {
     };
 
     return (
-        <>
-            <Box display="flex" justifyContent="flex-end" margin={2}>
-                <Button onClick={handleNavigate} variant="contained" color="primary">AI Powered chat</Button>
-                <Button onClick={handleAssistant} variant="contained" color="primary">Codeing Assistant</Button>
-            </Box>
             <AppContainer>
                 <h1>avm-genai-starter</h1>
                 <Settings handleOptionChange={handleOptionChange} selectedOption={selectedOption} />
@@ -71,7 +57,6 @@ const App = () => {
                     onSendMessage={handleSendMessage}
                 />
             </AppContainer>
-        </>
     );
 }
 

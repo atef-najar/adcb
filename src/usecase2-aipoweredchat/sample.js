@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Container, Button, Box } from "@mui/material";
+import { Container } from "@mui/material";
 import { GRAY_COLORS } from '../constants/colors';
 
-import { useNavigate } from 'react-router-dom';
 import MessageList from '../components/MessageList';
 import MessageInput from '../components/Input';
 
@@ -18,11 +17,9 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const AiPoweredChat = () => {
+const UseCase2Sample = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
-    const navigate = useNavigate()
 
     const handleSendMessage = () => {
         if (!message) return;
@@ -38,19 +35,11 @@ const AiPoweredChat = () => {
         }, 1000); // Mock response delay
     };
 
-    const handleNavigate = () => {
-        navigate('/')
-    }
-
     const handleInputChange = (event) => {
         setMessage(event.target.value);
     };
 
     return (
-        <>
-            <Box display="flex" justifyContent="flex-end" margin={2}>
-                <Button onClick={handleNavigate} variant="contained" color="primary">Home</Button>
-            </Box>
             <AppContainer>
                 <h1>avm-ai-poweredchat</h1>
                 <MessageList messages={messages} />
@@ -60,8 +49,7 @@ const AiPoweredChat = () => {
                     onSendMessage={handleSendMessage}
                 />
             </AppContainer>
-        </>
     );
 }
 
-export default AiPoweredChat;
+export default UseCase2Sample;
