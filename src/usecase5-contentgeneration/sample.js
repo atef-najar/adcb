@@ -67,7 +67,7 @@ const CodeingAssistantSample = () => {
     };
 
     const handleAssistant = () => {
-        navigate('/codeing_assistant_main')
+        navigate('/UseCase5/final')
     }
 
     return (
