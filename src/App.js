@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import MessageList from './components/MessageList';
-import MessageInput from './components/Input';
-import styled from '@emotion/styled';
+import React, { useState } from "react";
+import MessageList from "./components/MessageList";
+import MessageInput from "./components/Input";
+import styled from "@emotion/styled";
 import { Container } from "@mui/material";
 import { GRAY_COLORS } from "./constants/colors";
 
@@ -71,7 +71,6 @@ const App = () => {
     ]);
   };
 
-
   const handleOptionChange = (event) => {
     const selectedModel = SupportedModels.find(
       (model) => model.value === event.target.value,
@@ -85,25 +84,24 @@ const App = () => {
   };
 
   return (
-
-      <AppContainer>
-        <h1>avm-genai-starter</h1>
-        <Settings
-          handleOptionChange={handleOptionChange}
-          selectedOption={selectedOption}
-          includeSliders={true}
-          temperature={temperature}
-          setTemperature={setTemperature}
-          maxTokens={maxTokens}
-          setMaxTokens={setMaxTokens}
-        />
-        <MessageList messages={messages} />
-        <MessageInput
-          message={message}
-          onMessageChange={handleInputChange}
-          onSendMessage={handleSendMessage}
-        />
-      </AppContainer>
+    <AppContainer>
+      <h1>avm-genai-starter</h1>
+      <Settings
+        handleOptionChange={handleOptionChange}
+        selectedOption={selectedOption}
+        includeSliders={true}
+        temperature={temperature}
+        setTemperature={setTemperature}
+        maxTokens={maxTokens}
+        setMaxTokens={setMaxTokens}
+      />
+      <MessageList messages={messages} />
+      <MessageInput
+        message={message}
+        onMessageChange={handleInputChange}
+        onSendMessage={handleSendMessage}
+      />
+    </AppContainer>
   );
 };
 
