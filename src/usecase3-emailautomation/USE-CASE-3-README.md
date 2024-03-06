@@ -1,4 +1,4 @@
-# USE Case 3 : Email Automation
+# Use Case 3 : Email Automation
 
 **Overview:**
 The goal of this challenge is to create an application that takes a CSV file as input and generates personalized emails for each entry. 

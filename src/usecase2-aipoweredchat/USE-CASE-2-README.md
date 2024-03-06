@@ -1,4 +1,4 @@
-# USE Case 2 : AI Powered ChatX2
+# Use Case 2 : AI Powered ChatX2
 
 **Overview:**
 The objective of this challenge is to create an interactive chat that calls a model and allows for a conversation to take places

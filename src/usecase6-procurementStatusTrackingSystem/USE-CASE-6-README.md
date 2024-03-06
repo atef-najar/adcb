@@ -1,4 +1,4 @@
-# USE Case 6 : Procurement Status Agent
+# Use Case 6 : Procurement Status Agent
 
 **Overview:**
 The objective of this challenge is to create an interactive solution that streamlines the process of checking the status of procurement within an organization.
