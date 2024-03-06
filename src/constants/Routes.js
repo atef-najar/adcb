@@ -24,6 +24,15 @@ const routes = {
     route: "/codeAssistant/final",
     name: "Code Assistant Final",
   },
+  useCase6Sample: {
+    route: "/procurementStatusTracking/sample",
+    name: "Procurement Status Tracking Sample",
+  },
+  useCase6Final: {
+    route: "/procurementStatusTracking/final",
+    name: "Procurement Status Tracking Final",
+
+  }
 };
 
 export default routes;
