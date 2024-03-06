@@ -37,7 +37,7 @@ const UseCase6Final = () => {
             "providerName": "file",
             "modelVersion": "gpt-4-file",
             "roomId": "roomId",
-            "messages": messages.map(
+            "messages": [...messages, { text: message, isUser: true }].map(
                 (message) => {
                     return {
                         content: message.text,
