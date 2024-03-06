@@ -5,7 +5,8 @@ import MessageList from "./components/MessageList";
 import MessageInput from "./components/Input";
 // Import styled-components for custom styling
 import styled from "@emotion/styled";
-import { Container } from "@mui/material"; // Material UI container for layout
+import { Box, Container, Tooltip } from "@mui/material"; // Material UI container for layout, Box (which is a simple div) and Tooltip
+import DeleteSweepIcon from "@mui/icons-material/DeleteSweep"; //  Material UI icon
 // Import constants for color values
 import { GRAY_COLORS } from "./constants/colors";
 
@@ -22,10 +23,11 @@ const AppContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   max-width: 700px;
-  max-height: 80vh;
+  max-height: 90vh;
   border-radius: 30px;
   border: 1px solid ${GRAY_COLORS.GRAY_300};
   overflow: hidden;
+  height: fit-content;
 `;
 
 // Main App component
@@ -33,8 +35,8 @@ const App = () => {
   // State hooks for managing the message, message list, AI model, and API settings
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [selectedOption, setSelectedOption] = useState({});
-  const [selectedProvider, setSelectedProvider] = useState({});
+  const [selectedOption, setSelectedOption] = useState("gpt-4");
+  const [selectedProvider, setSelectedProvider] = useState("open_ai");
   const [temperature, setTemperature] = useState(0.7);
   const [maxTokens, setMaxTokens] = useState(1024);
 
@@ -43,32 +45,39 @@ const App = () => {
     return api.post("/conversations/avm-completion", requestData);
   };
 
+  console.log("messages ------------------->> ", messages);
+
   // Function to handle sending a message and receiving an AI response
   const handleSendMessage = async () => {
     if (!message) return; // Prevent sending empty messages
 
-    // Add the user's message to the messages list and clear the input
-    setMessages([...messages, { text: message, isUser: true }]);
+    // Add the user's message to the messages list
+    const newMessagesArray = [...messages];
+    newMessagesArray.push({ text: message, isUser: true });
+    setMessages([...newMessagesArray]);
+
+    // Clear the input
     setMessage("");
 
     // Prepare request data for the API call
     const requestData = {
       providerName: selectedProvider,
       modelVersion: selectedOption,
-      roomId: "12345",
-      messages: [...messages, { text: message, isUser: true }].map(
-        (message) => {
-          return {
-            content: message.text,
-            role: message.isUser ? "user" : "system",
-          };
-        },
-      ),
+      messages: newMessagesArray.map((message) => {
+        return {
+          content: message.text,
+          role: message.isUser ? "user" : "system",
+        };
+      }),
       settings: {
         maxTokens: maxTokens,
         temperature: temperature,
       },
     };
+
+    // Add the loading message, this is for the loading state, this is optional
+    newMessagesArray.push({ text: "", isUser: false, loading: true });
+    setMessages([...newMessagesArray]);
 
     // Get AI response and add it to the messages list
     const aiResponse = await getAiResponse(requestData);
@@ -76,10 +85,19 @@ const App = () => {
       data: { message: aiMessage },
     } = aiResponse;
 
-    setMessages((messages) => [
-      ...messages,
-      { text: aiMessage, isUser: false },
-    ]);
+    // We override the loading message, with the one we got from the API Request
+    // Only needed because we used the loading state, otherwise we could've simply used this:
+    // setMessages((messages) => [
+    //   ...messages,
+    //   { text: aiMessage, isUser: false },
+    // ]);
+    newMessagesArray[newMessagesArray.length - 1] = {
+      text: aiMessage,
+      isUser: false,
+    };
+
+    // setting the latest state
+    setMessages([...newMessagesArray]);
   };
 
   // Handlers for changing settings (AI model option, temperature, max tokens)
@@ -98,7 +116,18 @@ const App = () => {
   // Render the app layout with settings, message list, and message input
   return (
     <AppContainer>
-      <h1>avm-genai-starter</h1>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <h1>avm-genai-starter</h1>
+        <Tooltip title={"Clear State"}>
+          <DeleteSweepIcon />
+        </Tooltip>
+      </Box>
       <Settings
         handleOptionChange={handleOptionChange}
         selectedOption={selectedOption}

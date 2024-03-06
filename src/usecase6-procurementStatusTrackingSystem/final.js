@@ -23,7 +23,6 @@ const UseCase6Final = () => {
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
     const [fileKey, setFileKey] = useState('');
     const [fileBuffer, setFileBuffer] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle sending messages
     const handleSendMessage = () => {
@@ -32,14 +31,13 @@ const UseCase6Final = () => {
         // Add user message to both message lists
         setMessages([...messages, { text: message, isUser: true }]);
         setMessage('');
-        setIsLoading(true);
 
         // Define request data for GPT-4 and Amazon Titan
         const requestDataGpt4 = {
             "providerName": "file",
             "modelVersion": "gpt-4-file",
             "roomId": "roomId",
-            "messages": [...messages, { text: message, isUser: true }].map(
+            "messages": messages.map(
                 (message) => {
                     return {
                         content: message.text,
@@ -60,10 +58,8 @@ const UseCase6Final = () => {
             const aiResponse = api.post('/conversations/avm-completion', requestData);
             aiResponse.then((res) => {
                 messagesData(currentState => [...currentState, { text: res.data.message, isUser: false }]);
-                setIsLoading(false)
             })
             .catch((error) => {
-                setIsLoading(false)
                 console.log("something went wrong", error)
             });
         }
@@ -80,7 +76,6 @@ const UseCase6Final = () => {
     const handleFileUpload=(data)=>{
         setFileKey(data.fileKey);
         setFileBuffer(data.fileBuffer);
-        setIsLoading(true);
 
         const requestData = {
             "providerName": "file",
@@ -102,10 +97,8 @@ const UseCase6Final = () => {
         aiResponse.then((res) => {
             // Add AI response to messages state
             setMessages(messages => [...messages, { text: res.data.message, isUser: false }]);
-            setIsLoading(false)
         })
         .catch((error) => {
-            setIsLoading(false)
             console.log("something went wrong", error)
         });
     }
@@ -114,7 +107,7 @@ const UseCase6Final = () => {
         <AppContainer>
             <h1>avm-ai-procurement-status-tracking-system</h1>
             {/* Display message lists for GPT-4 and Amazon Titan */}
-            <MessageList messages={messages} isLoading={isLoading}/>
+            <MessageList messages={messages} />
             <Box display='flex' width='100%' alignItems='center'>
                 <FileUpload getMessages={handleFileUpload} />
                 {/* Render the message input component */}

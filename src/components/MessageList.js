@@ -60,36 +60,35 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
 `;
 
 // Message component for rendering individual messages with markdown support
-const Message = ({ text, isUser }) => {
+const Message = ({ text, isUser, loading }) => {
   return (
     <MessageContainer elevation={3} isuser={isUser ? 1 : 0}>
-      <Typography variant="body1" component="p">
-        {/* Render markdown content from message text */}
-        <StyledReactMarkdown>{text}</StyledReactMarkdown>
-      </Typography>
+      {/* Render the spinner if the message is loading */}
+      {loading ? (
+        <BeatLoader />
+      ) : (
+        <Typography variant="body1" component="p">
+          {/* Render markdown content from message text */}
+          <StyledReactMarkdown>{text}</StyledReactMarkdown>
+        </Typography>
+      )}
     </MessageContainer>
   );
 };
 
 // MessageList component for rendering a list of messages
-const MessageList = ({ messages, isLoading }) => {
+const MessageList = ({ messages }) => {
   return (
     <MessageListContainer>
       {/* Map over each message in the messages array and render a Message component */}
-      {isLoading ? (
-        <>
-          {messages?.map((message, index) => (
-            <Message key={index} text={message.text} isUser={message.isUser} />
-          ))}
-          <Box marginTop="20px">
-            <BeatLoader />
-          </Box>
-        </>
-      ) : (
-        messages?.map((message, index) => (
-          <Message key={index} text={message.text} isUser={message.isUser} />
-        ))
-      )}
+      {messages?.map((message, index) => (
+        <Message
+          key={index}
+          text={message.text}
+          isUser={message.isUser}
+          loading={message.loading}
+        />
+      ))}
     </MessageListContainer>
   );
 };
