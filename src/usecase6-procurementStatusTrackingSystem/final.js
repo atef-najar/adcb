@@ -1,11 +1,12 @@
 import api from '../ApiConfig';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Container,  Box } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { GRAY_COLORS } from '../constants/colors';
 
 import MessageList from '../components/MessageList';
 import MessageInput from '../components/Input';
+import FileUpload from '../components/FileUpload';
 
 const AppContainer = styled(Container)`
     margin-top: 120px;
@@ -17,10 +18,11 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const UseCase2Final = () => {
+const UseCase6Final = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
-    const [amazonTitanMessages, setAmazonTitanMessages] = useState([]); // State variable for Amazon Titan messages
+    const [fileKey, setFileKey] = useState('');
+    const [fileBuffer, setFileBuffer] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle sending messages
@@ -29,44 +31,27 @@ const UseCase2Final = () => {
 
         // Add user message to both message lists
         setMessages([...messages, { text: message, isUser: true }]);
-        setAmazonTitanMessages([...amazonTitanMessages, { text: message, isUser: true }]);
         setMessage('');
         setIsLoading(true);
 
         // Define request data for GPT-4 and Amazon Titan
         const requestDataGpt4 = {
-            "providerName": "open_ai",
-            "modelVersion": "gpt-4",
+            "providerName": "file",
+            "modelVersion": "gpt-4-file",
             "roomId": "roomId",
             "messages": [...messages, { text: message, isUser: true }].map(
                 (message) => {
-                  return {
-                    content: message.text,
-                    role: message.isUser ? "user" : "system",
-                  };
+                    return {
+                        content: message.text,
+                        role: message.isUser ? "user" : "system",
+                    };
                 },
-              ),
+            ),
             "settings": {
                 "maxTokens": 1024,
-                "temperature": 0.7
-            }
-        };
-
-        const requestDataAmazonTitan = {
-            "providerName": "amazon",
-            "modelVersion": "amazon.titan-text-express-v1",
-            "roomId": "roomId",
-            "messages":  [...amazonTitanMessages, { text: message, isUser: true }].map(
-                (message) => {
-                  return {
-                    content: message.text,
-                    role: message.isUser ? "user" : "system",
-                  };
-                },
-              ),
-            "settings": {
-                "maxTokens": 1024,
-                "temperature": 0.7
+                "temperature": 0.7,
+                "fileKey": fileKey, //name of the .csv file
+                "fileBuffer": fileBuffer //buffer data of .csv file
             }
         };
 
@@ -75,7 +60,7 @@ const UseCase2Final = () => {
             const aiResponse = api.post('/conversations/avm-completion', requestData);
             aiResponse.then((res) => {
                 messagesData(currentState => [...currentState, { text: res.data.message, isUser: false }]);
-                setIsLoading(false)                
+                setIsLoading(false)
             })
             .catch((error) => {
                 setIsLoading(false)
@@ -85,7 +70,6 @@ const UseCase2Final = () => {
 
         // Make API requests for GPT-4 and Amazon Titan
         getAiResponse(requestDataGpt4, setMessages);
-        getAiResponse(requestDataAmazonTitan, setAmazonTitanMessages);
     };
 
     // Function to handle input change in the message input field
@@ -93,28 +77,57 @@ const UseCase2Final = () => {
         setMessage(event.target.value);
     };
 
+    const handleFileUpload=(data)=>{
+        setFileKey(data.fileKey);
+        setFileBuffer(data.fileBuffer);
+        setIsLoading(true);
+
+        const requestData = {
+            "providerName": "file",
+            "modelVersion": "gpt-4-file",
+            "roomId": "roomId",
+            "messages": [{
+                "content": "",
+                "role": "user"
+            }],
+            "settings": {
+                "maxTokens": 1024,
+                "temperature": 0.7,
+                "fileKey": data.fileKey, //name of the .csv file
+                "fileBuffer": data.fileBuffer //buffer data of .csv file
+            }
+        };
+
+        const aiResponse = api.post('/conversations/avm-completion', requestData);
+        aiResponse.then((res) => {
+            // Add AI response to messages state
+            setMessages(messages => [...messages, { text: res.data.message, isUser: false }]);
+            setIsLoading(false)
+        })
+        .catch((error) => {
+            setIsLoading(false)
+            console.log("something went wrong", error)
+        });
+    }
+
     return (
         <AppContainer>
-            <h1>avm-ai-poweredchat</h1>
+            <h1>avm-ai-procurement-status-tracking-system</h1>
             {/* Display message lists for GPT-4 and Amazon Titan */}
-            <Box display='flex' justifyContent='space-between' gap='1rem' >
+            <MessageList messages={messages} isLoading={isLoading}/>
+            <Box display='flex' width='100%' alignItems='center'>
+                <FileUpload getMessages={handleFileUpload} />
+                {/* Render the message input component */}
                 <Box width='100%' >
-                    <h3>GPT-4</h3>
-                    <MessageList messages={messages} isLoading={isLoading}/>
-                </Box>
-                <Box width='100%' >
-                    <h3>Titan Text Large</h3>
-                    <MessageList messages={amazonTitanMessages} isLoading={isLoading}/>
+                    <MessageInput
+                        message={message}
+                        onMessageChange={handleInputChange}
+                        onSendMessage={handleSendMessage}
+                    />
                 </Box>
             </Box>
-            {/* Render the message input component */}
-            <MessageInput
-                message={message}
-                onMessageChange={handleInputChange}
-                onSendMessage={handleSendMessage}
-            />
         </AppContainer>
     );
 }
 
-export default UseCase2Final;
+export default UseCase6Final;

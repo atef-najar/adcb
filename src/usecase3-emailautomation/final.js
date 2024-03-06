@@ -30,9 +30,11 @@ const MyInput = styled.input`
 const UseCase3Final = () => {
     // State to store messages
     const [messages, setMessages] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle file upload
     const onUploadDocument = async (e) => {
+        setIsLoading(true);
         const files = e?.target?.files;
         const file = files && files.length > 0 && files[0];
         if (!file) {
@@ -62,8 +64,10 @@ const UseCase3Final = () => {
             aiResponse.then((res) => {
                 // Add AI response to messages state
                 setMessages(messages => [...messages, { text: res.data.message, isUser: false }]);
+                setIsLoading(false);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log("something went wrong", error)
             });
         };
@@ -74,7 +78,7 @@ const UseCase3Final = () => {
         <AppContainer>
             <h1>avm-ai-email-automation</h1>
             {/* Component to display messages */}
-            <MessageList messages={messages} />
+            <MessageList messages={messages} isLoading={isLoading}/>
             {/* File upload button */}
             <label htmlFor="file-input">
                 <AttachFileIcon sx={{ width: '30px', height: '30px', margin: '10px' }} />

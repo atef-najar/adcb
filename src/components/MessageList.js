@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Box, Paper, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
+import { BeatLoader } from 'react-spinners';
 
 import { COLOR_SECONDARY, GRAY_COLORS } from "../constants/colors";
 
@@ -13,12 +14,6 @@ const MessageContainer = styled(Paper)(({ isuser }) => ({
   maxWidth: "80%", // Limits maximum width to 80% of parent container
   padding: 8, // Padding inside the container
   marginTop: 12, // Top margin
-  backgroundColor: isuser ? COLOR_SECONDARY : GRAY_COLORS.GRAY_100,
-  alignSelf: isuser ? 'end' : 'start',
-  width: 'fit-content',
-  maxWidth: '80%',
-  padding: 8,
-  marginTop: 12,
 }));
 
 // Styled component for the container that holds all messages
@@ -77,13 +72,24 @@ const Message = ({ text, isUser }) => {
 };
 
 // MessageList component for rendering a list of messages
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, isLoading }) => {
   return (
     <MessageListContainer>
       {/* Map over each message in the messages array and render a Message component */}
-      {messages?.map((message, index) => (
-        <Message key={index} text={message.text} isUser={message.isUser} />
-      ))}
+      {isLoading ? (
+        <>
+          {messages?.map((message, index) => (
+            <Message key={index} text={message.text} isUser={message.isUser} />
+          ))}
+          <Box marginTop="20px">
+            <BeatLoader />
+          </Box>
+        </>
+      ) : (
+        messages?.map((message, index) => (
+          <Message key={index} text={message.text} isUser={message.isUser} />
+        ))
+      )}
     </MessageListContainer>
   );
 };

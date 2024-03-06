@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { GRAY_COLORS } from '../constants/colors';
 
 import MessageList from '../components/MessageList';
 import MessageInput from '../components/Input';
+import FileUpload from '../components/FileUpload';
 
 const AppContainer = styled(Container)`
     margin-top: 120px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     max-width: 700px;
-    max-height: 80vh;
     border-radius: 30px;
     border: 1px solid ${GRAY_COLORS.GRAY_300};
     overflow: hidden;
 `;
 
-const UseCase2Sample = () => {
+const UseCase6Sample = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
     const [isLoading, setIsLoading] = useState(false);
@@ -26,34 +26,52 @@ const UseCase2Sample = () => {
     const handleSendMessage = () => {
         if (!message) return;
 
-        // Add user message
         setMessages([...messages, { text: message, isUser: true }]);
         setMessage('');
         setIsLoading(true);
 
-        // Mock AI response after a delay
         setTimeout(() => {
             const aiResponse = "This is a mock response from AI.";
+            // Add AI response to messages state
             setMessages(messages => [...messages, { text: aiResponse, isUser: false }]);
-            setIsLoading(false);
+            setIsLoading(false)
         }, 1000); // Mock response delay
     };
 
+    // Function to handle input change in the message input field
     const handleInputChange = (event) => {
         setMessage(event.target.value);
     };
 
+    const handleFileUpload=(data)=>{
+        setIsLoading(true)
+        setTimeout(() => {
+            const aiResponse = "This is a mock response from AI.";
+            // Add AI response to messages state
+            setMessages(messages => [...messages, { text: aiResponse, isUser: false }]);
+            setIsLoading(false)
+        }, 1000); // Mock response delay
+    }
+
     return (
         <AppContainer>
-            <h1>avm-ai-poweredchat</h1>
+            <h1>avm-ai-procurement-status-tracking-system</h1>
+            {/* Display message lists for GPT-4 and Amazon Titan */}
             <MessageList messages={messages} isLoading={isLoading}/>
-            <MessageInput
-                message={message}
-                onMessageChange={handleInputChange}
-                onSendMessage={handleSendMessage}
-            />
+                
+            <Box display='flex' width='100%' alignItems='center'>
+                <FileUpload getMessages={handleFileUpload} />
+                {/* Render the message input component */}
+                <Box width='100%' >
+                    <MessageInput
+                        message={message}
+                        onMessageChange={handleInputChange}
+                        onSendMessage={handleSendMessage}
+                    />
+                </Box>
+            </Box>
         </AppContainer>
     );
 }
 
-export default UseCase2Sample;
+export default UseCase6Sample;
