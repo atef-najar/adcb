@@ -21,24 +21,28 @@ const UseCase2Final = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
     const [amazonTitanMessages, setAmazonTitanMessages] = useState([]); // State variable for Amazon Titan messages
-    const [userMessages, setUserMessages] = useState([]);
 
     // Function to handle sending messages
     const handleSendMessage = () => {
         if (!message) return;
 
         // Add user message to both message lists
-        setMessages([...messages, { text: message, isUser: true }]);
-        setAmazonTitanMessages([...amazonTitanMessages, { text: message, isUser: true }]);
+        const newMessagesArray = [...messages];
+        newMessagesArray.push({ text: message, isUser: true });
+        setMessages([...newMessagesArray]);
+        const newAmazonMessagesArray = [...amazonTitanMessages];
+        newAmazonMessagesArray.push({ text: message, isUser: true });
+        setAmazonTitanMessages([...newAmazonMessagesArray]);
+        
+        // Clear the input
         setMessage('');
 
-        console.log(userMessages,"userMessages")
         // Define request data for GPT-4 and Amazon Titan
         const requestDataGpt4 = {
             "providerName": "open_ai",
             "modelVersion": "gpt-4",
             "roomId": "roomId",
-            "messages": [...messages, { text: message, isUser: true }].map(
+            "messages": newMessagesArray.map(
                 (message) => {
                   return {
                     content: message.text,
@@ -56,7 +60,7 @@ const UseCase2Final = () => {
             "providerName": "amazon",
             "modelVersion": "amazon.titan-text-express-v1",
             "roomId": "roomId",
-            "messages":  [...amazonTitanMessages, { text: message, isUser: true }].map(
+            "messages":  newAmazonMessagesArray.map(
                 (message) => {
                   return {
                     content: message.text,
@@ -70,11 +74,30 @@ const UseCase2Final = () => {
             }
         };
 
+        // Add the loading message, this is for the loading state, this is optional
+        newMessagesArray.push({ text: "", isUser: false, loading: true });
+        setMessages([...newMessagesArray]);
+
+        newAmazonMessagesArray.push({ text: "", isUser: false, loading: true });
+        setAmazonTitanMessages([...newAmazonMessagesArray]);
+
         // Function to make API request and update message list
-        const getAiResponse = (requestData, messagesData) => {
+        const getAiResponse = (requestData, messagesData, messages) => {
             const aiResponse = api.post('/conversations/avm-completion', requestData);
             aiResponse.then((res) => {
-                messagesData(currentState => [...currentState, { text: res.data.message, isUser: false }]);
+                // We override the loading message, with the one we got from the API Request
+                // Only needed because we used the loading state, otherwise we could've simply used this:
+                // setMessages((messages) => [
+                //   ...messages,
+                //   { text: aiMessage, isUser: false },
+                // ]);
+                messages[messages.length - 1] = {
+                    text: res.data.message,
+                    isUser: false,
+                  };
+              
+                  // setting the latest state
+                  messagesData([...messages]);
             })
             .catch((error) => {
                 console.log("something went wrong", error)
@@ -82,8 +105,8 @@ const UseCase2Final = () => {
         }
 
         // Make API requests for GPT-4 and Amazon Titan
-        getAiResponse(requestDataGpt4, setMessages);
-        getAiResponse(requestDataAmazonTitan, setAmazonTitanMessages);
+        getAiResponse(requestDataGpt4, setMessages, newMessagesArray);
+        getAiResponse(requestDataAmazonTitan, setAmazonTitanMessages, newAmazonMessagesArray);
     };
 
     // Function to handle input change in the message input field

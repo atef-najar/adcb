@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Box, Paper, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
+import { BeatLoader } from 'react-spinners';
 
 import { COLOR_SECONDARY, GRAY_COLORS } from "../constants/colors";
-import { BeatLoader } from "react-spinners";
 
 // Styled component for message container with conditional styles based on the message sender
 const MessageContainer = styled(Paper)(({ isuser }) => ({
