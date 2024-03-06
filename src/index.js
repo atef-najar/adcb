@@ -13,28 +13,39 @@ import Sidebar from "./components/Sidebar";
 import routes from "./constants/Routes";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Sidebar />
-      <Routes>
-        <Route path={routes.home.route} element={<App />} />
-        <Route
-          path={routes.useCase2Sample.route}
-          element={<UseCase2Sample />}
-        />
-        <Route path={routes.useCase2Final.route} element={<UseCase2Final />} />
-        <Route
-          path={routes.useCase3Sample.route}
-          element={<UseCase3Sample />}
-        />
-        <Route path={routes.useCase3Final.route} element={<UseCase3Final />} />
-        <Route
-          path={routes.useCase5Sample.route}
-          element={<UseCase5Sample />}
-        />
-        <Route path={routes.useCase5Final.route} element={<UseCase5Final />} />
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <div style={{ display: "flex" }}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Sidebar />
+        <Routes>
+          <Route path={routes.home.route} element={<App />} />
+          <Route
+            path={routes.useCase2Sample.route}
+            element={<UseCase2Sample />}
+          />
+          <Route
+            path={routes.useCase2Final.route}
+            element={<UseCase2Final />}
+          />
+          <Route
+            path={routes.useCase3Sample.route}
+            element={<UseCase3Sample />}
+          />
+          <Route
+            path={routes.useCase3Final.route}
+            element={<UseCase3Final />}
+          />
+          <Route
+            path={routes.useCase5Sample.route}
+            element={<UseCase5Sample />}
+          />
+          <Route
+            path={routes.useCase5Final.route}
+            element={<UseCase5Final />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  </div>,
   document.getElementById("root"),
 );
