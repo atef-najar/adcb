@@ -5,7 +5,7 @@ import MessageList from "./components/MessageList";
 import MessageInput from "./components/Input";
 // Import styled-components for custom styling
 import styled from "@emotion/styled";
-import { Box, Container, Tooltip } from "@mui/material"; // Material UI container for layout, Box (which is a simple div) and Tooltip
+import { Box, Container, IconButton, Tooltip } from "@mui/material"; // Material UI container for layout, Box (which is a simple div) and Tooltip
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep"; //  Material UI icon
 // Import constants for color values
 import { GRAY_COLORS } from "./constants/colors";
@@ -35,8 +35,12 @@ const App = () => {
   // State hooks for managing the message, message list, AI model, and API settings
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("gpt-4");
-  const [selectedProvider, setSelectedProvider] = useState("open_ai");
+  const [selectedOption, setSelectedOption] = useState(
+    SupportedModels[0].value,
+  );
+  const [selectedProvider, setSelectedProvider] = useState(
+    SupportedModels[0].provider,
+  );
   const [temperature, setTemperature] = useState(0.7);
   const [maxTokens, setMaxTokens] = useState(1024);
 
@@ -46,6 +50,13 @@ const App = () => {
   };
 
   console.log("messages ------------------->> ", messages);
+  // Function to handle sending a message and receiving an AI response
+  const handleResetState = () => {
+    setMessage("");
+    setMessages([]);
+    setSelectedOption(SupportedModels[0].value);
+    setSelectedProvider(SupportedModels[0].provider);
+  };
 
   // Function to handle sending a message and receiving an AI response
   const handleSendMessage = async () => {
@@ -125,7 +136,9 @@ const App = () => {
       >
         <h1>avm-genai-starter</h1>
         <Tooltip title={"Clear State"}>
-          <DeleteSweepIcon />
+          <IconButton onClick={handleResetState}>
+            <DeleteSweepIcon />
+          </IconButton>
         </Tooltip>
       </Box>
       <Settings
