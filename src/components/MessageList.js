@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Box, Paper, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
-import { BeatLoader } from 'react-spinners';
+import { BeatLoader } from "react-spinners";
 
 import { COLOR_SECONDARY, GRAY_COLORS } from "../constants/colors";
 
@@ -60,12 +60,15 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
 `;
 
 // Message component for rendering individual messages with markdown support
-const Message = ({ text, isUser, loading }) => {
+const Message = ({ text, isUser, loading, provider }) => {
   return (
     <MessageContainer elevation={3} isuser={isUser ? 1 : 0}>
       {/* Render the spinner if the message is loading */}
+      {/* Render the image if the message is coming from stability Ai */}
       {loading ? (
         <BeatLoader />
+      ) : provider === "stability" && !isUser ? (
+        <img src={`data:image/jpeg;base64,${text}`} alt={"generated-image"} />
       ) : (
         <Typography variant="body1" component="p">
           {/* Render markdown content from message text */}
@@ -77,12 +80,13 @@ const Message = ({ text, isUser, loading }) => {
 };
 
 // MessageList component for rendering a list of messages
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, provider }) => {
   return (
     <MessageListContainer>
       {/* Map over each message in the messages array and render a Message component */}
       {messages?.map((message, index) => (
         <Message
+          provider={provider}
           key={index}
           text={message.text}
           isUser={message.isUser}

@@ -150,7 +150,8 @@ const App = () => {
         maxTokens={maxTokens}
         setMaxTokens={setMaxTokens}
       />
-      <MessageList messages={messages} />
+      {/*provider prop is needed for using the image model from Stability AI */}
+      <MessageList messages={messages} provider={selectedProvider} />
       <MessageInput
         message={message}
         onMessageChange={handleInputChange}

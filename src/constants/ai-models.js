@@ -61,7 +61,7 @@ export const SupportedModels = [
   {
     displayName: "Stability",
     value: "stability.stable-diffusion-xl-v0",
-    provider: "Stability",
+    provider: "stability",
   },
   {
     displayName: "Llama 2 Chat 70B",
