@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <div>
-      <Drawer variant="permanent" open={true}>
+      <Drawer variant="persistent" open={true}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <img style={{ height: 72 }} src={AvmLogo} alt={"avm-logo"} />
         </Box>
