@@ -24,6 +24,8 @@ const MessageInput = ({ message, onMessageChange, onSendMessage }) => {
     <StyledInputContainer display="flex" justifyContent="center" margin={2}>
       {/* Text input field styled with custom properties and handling change and key down events */}
       <StyledInputElement
+        multiline
+        maxRows={5}
         value={message} // Controlled input field value
         onChange={onMessageChange} // Function to call on input change
         placeholder="Type your message here..." // Placeholder text for the input
