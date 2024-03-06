@@ -17,6 +17,7 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
+// Styled input for file upload
 const MyInput = styled.input`
   width: 0.1px;
   height: 0.1px;
@@ -27,8 +28,10 @@ const MyInput = styled.input`
 `;
 
 const UseCase3Final = () => {
+    // State to store messages
     const [messages, setMessages] = useState([]);
 
+    // Function to handle file upload
     const onUploadDocument = async (e) => {
         const files = e?.target?.files;
         const file = files && files.length > 0 && files[0];
@@ -50,13 +53,14 @@ const UseCase3Final = () => {
                 "settings": {
                     "maxTokens": 1024,
                     "temperature": 0.7,
-                    "fileKey": file.name,
-                    "fileBuffer": base64
+                    "fileKey": file.name, //name of the .csv file
+                    "fileBuffer": base64 //buffer data of .csv file
                 }
             };
-        
+
             const aiResponse = api.post('/conversations/avm-completion', requestData);
             aiResponse.then((res) => {
+                // Add AI response to messages state
                 setMessages(messages => [...messages, { text: res.data.message, isUser: false }]);
             })
             .catch((error) => {
@@ -67,26 +71,28 @@ const UseCase3Final = () => {
     };
 
     return (
-            <AppContainer>
-                <h1>avm-ai-poweredchat</h1>
-                <MessageList messages={messages} />
-                <label htmlFor="file-input">
-                    <AttachFileIcon sx={{ width: '30px', height: '30px', margin: '10px'}} />
-                </label>
-                <MyInput
-                    type="file"
-                    id={'file-input'}
-                    name={'file-input'}
-                    onChange={onUploadDocument}
-                    style={{ display: 'none' }}
-                    onClick={(event) => {
-                        event.target.value = null;
-                    }}
-                    accept={
-                        '.csv'
-                    }
-                />
-            </AppContainer>
+        <AppContainer>
+            <h1>avm-ai-email-automation</h1>
+            {/* Component to display messages */}
+            <MessageList messages={messages} />
+            {/* File upload button */}
+            <label htmlFor="file-input">
+                <AttachFileIcon sx={{ width: '30px', height: '30px', margin: '10px' }} />
+            </label>
+            <MyInput
+                type="file"
+                id={'file-input'}
+                name={'file-input'}
+                onChange={onUploadDocument}
+                style={{ display: 'none' }}
+                onClick={(event) => {
+                    event.target.value = null;
+                }}
+                accept={
+                    '.csv'
+                }
+            />
+        </AppContainer>
     );
 }
 
