@@ -1,14 +1,22 @@
+// Import necessary React hooks and components
 import React, { useState } from "react";
+// Import custom components for displaying messages and input
 import MessageList from "./components/MessageList";
 import MessageInput from "./components/Input";
+// Import styled-components for custom styling
 import styled from "@emotion/styled";
-import { Container } from "@mui/material";
+import { Container } from "@mui/material"; // Material UI container for layout
+// Import constants for color values
 import { GRAY_COLORS } from "./constants/colors";
 
+// Import settings component for AI model selection
 import Settings from "./components/Settings";
+// Import API configuration for backend communication
 import api from "./ApiConfig";
+// Import supported AI models for dropdown selection
 import { SupportedModels } from "./constants/ai-models";
 
+// Define the main application container with styled-component for specific styling
 const AppContainer = styled(Container)`
   margin-top: 120px;
   display: flex;
@@ -20,7 +28,9 @@ const AppContainer = styled(Container)`
   overflow: hidden;
 `;
 
+// Main App component
 const App = () => {
+  // State hooks for managing the message, message list, AI model, and API settings
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [selectedOption, setSelectedOption] = useState({});
@@ -28,22 +38,24 @@ const App = () => {
   const [temperature, setTemperature] = useState(0.7);
   const [maxTokens, setMaxTokens] = useState(1024);
 
+  // Function to send request data to the API for AI response
   const getAiResponse = (requestData) => {
     return api.post("/conversations/avm-completion", requestData);
   };
 
+  // Function to handle sending a message and receiving an AI response
   const handleSendMessage = async () => {
-    if (!message) return;
+    if (!message) return; // Prevent sending empty messages
 
-    // Add user message
+    // Add the user's message to the messages list and clear the input
     setMessages([...messages, { text: message, isUser: true }]);
     setMessage("");
 
+    // Prepare request data for the API call
     const requestData = {
       providerName: selectedProvider,
       modelVersion: selectedOption,
       roomId: "12345",
-
       messages: [...messages, { text: message, isUser: true }].map(
         (message) => {
           return {
@@ -58,9 +70,8 @@ const App = () => {
       },
     };
 
-    // Mock AI response after a delay
+    // Get AI response and add it to the messages list
     const aiResponse = await getAiResponse(requestData);
-
     const {
       data: { message: aiMessage },
     } = aiResponse;
@@ -71,6 +82,7 @@ const App = () => {
     ]);
   };
 
+  // Handlers for changing settings (AI model option, temperature, max tokens)
   const handleOptionChange = (event) => {
     const selectedModel = SupportedModels.find(
       (model) => model.value === event.target.value,
@@ -83,6 +95,7 @@ const App = () => {
     setMessage(event.target.value);
   };
 
+  // Render the app layout with settings, message list, and message input
   return (
     <AppContainer>
       <h1>avm-genai-starter</h1>
@@ -105,4 +118,5 @@ const App = () => {
   );
 };
 
+// Export the App component for use in other parts of the application
 export default App;
