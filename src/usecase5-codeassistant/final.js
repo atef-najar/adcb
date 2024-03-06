@@ -36,9 +36,16 @@ const UseCase5Final = () => {
   const [selectedProvider, setSelectedProvider] = useState("");
   const [selectedStatement, setSelectedStatement] = useState("");
   const [selectedCommand, setSelectedCommand] = useState("");
+  const [temperature, setTemperature] = useState(0.7);
+  const [maxTokens, setMaxTokens] = useState(1024);
+
+  // Function to send request data to the API for AI response
+  const getAiResponse = (requestData) => {
+    return api.post("/conversations/avm-completion", requestData);
+  };
 
   // Function to handle sending a message
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     // Check if message is empty
     if (!message) return;
 
@@ -47,7 +54,7 @@ const UseCase5Final = () => {
 
     // Check if selected statement requires a command and if it's empty
     if (
-      selectedStatement === "Generate Test Case For" ||
+      selectedStatement === "Generate Test Case in" ||
       selectedStatement === "Convert To"
     ) {
       if (selectedCommand === "") return;
@@ -57,49 +64,47 @@ const UseCase5Final = () => {
     let statement = message + " " + selectedStatement + " " + selectedCommand;
 
     // Add user message to messages state
-    setMessages([...messages, { text: statement, isUser: true }]);
+    const newMessagesArray = [...messages];
+    newMessagesArray.push({ text: statement, isUser: true });
+    setMessages([...newMessagesArray]);
 
     // Clear message input
     setMessage("");
 
     // Prepare data for API request
-    const postData = {
+    const requestData = {
       providerName: selectedProvider,
       modelVersion: selectedOption,
       roomId: "12345",
-      messages: [
-        {
-          content: statement,
-          role: "user",
-        },
-      ],
+      messages: newMessagesArray.map((message) => {
+        return {
+          content: message.text,
+          role: message.isUser ? "user" : "system",
+        };
+      }),
       settings: {
-        maxTokens: 1024,
-        temperature: 0.5,
+        maxTokens: maxTokens,
+        temperature: temperature,
       },
     };
 
-    // Send API request
-    api
-      .post("/conversations/avm-completion-secure", postData)
-      .then((response) => {
-        // Add AI response to messages
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: response.data["message"], isUser: false },
-        ]);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setTimeout(() => {
-          // Add mock AI response in case of error
-          const aiResponse = "This is a mock response from AI.";
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            { text: aiResponse, isUser: false },
-          ]);
-        }, 6000);
-      });
+    // Add the loading message, this is for the loading state, this is optional
+    newMessagesArray.push({ text: "", isUser: false, loading: true });
+    setMessages([...newMessagesArray]);
+
+    // Get AI response and add it to the messages list
+    const aiResponse = await getAiResponse(requestData);
+    const {
+      data: { message: aiMessage },
+    } = aiResponse;
+
+    newMessagesArray[newMessagesArray.length - 1] = {
+      text: aiMessage,
+      isUser: false,
+    };
+
+    // setting the latest state
+    setMessages([...newMessagesArray]);
   };
 
   // Function to handle the change in option
@@ -141,7 +146,7 @@ const UseCase5Final = () => {
         handleStatementChange={handleStatementChange}
         selectedStatement={selectedStatement}
       />
-      {selectedStatement === "Generate Test Case For" ? ( // Check if the selected statement is "Generate Test Case For"
+      {selectedStatement === "Generate Test Case in" ? ( // Check if the selected statement is "Generate Test Case in"
         <>
           <br />
           {/* Render the Test Case Statement component */}
@@ -151,7 +156,7 @@ const UseCase5Final = () => {
           />
         </>
       ) : null}{" "}
-      {/* If the selected statement is not "Generate Test Case For", render nothing */}
+      {/* If the selected statement is not "Generate Test Case in", render nothing */}
       {selectedStatement === "Convert To" ? ( // Check if the selected statement is "Convert To"
         <>
           <br />

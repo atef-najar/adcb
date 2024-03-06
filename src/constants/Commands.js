@@ -13,7 +13,7 @@ export const Commands = [
     },
     {
         displayName: 'Generate Test Case',
-        value: 'Generate Test Case For'
+        value: 'Generate Test Case in'
     },
     {
         displayName: 'Vulnerability Check',
