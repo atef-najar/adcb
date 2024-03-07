@@ -15,20 +15,32 @@ import { GRAY_COLORS } from "../constants/colors";
 
 // Styled component for the main application container
 const AppContainer = styled(Container)`
+// ! The height of the container will adjust to fit its content
+  height: fit-content;
+  // ! Adds a margin of 120 pixels on the top
   margin-top: 120px;
+  // ! Sets the container to use flexbox layout
   display: flex;
+  // ! Items inside the container will be stacked vertically
   flex-direction: column;
+  // ! Sets the maximum width of the container to 700 pixels
   max-width: 700px;
+  // ! Applies a border radius of 30 pixels to the corners of the container
   border-radius: 30px;
-  border: 1px solid ${GRAY_COLORS.GRAY_300};
+  // ! Adds a 1 pixel solid border with the color defined in GRAY_COLORS.GRAY_300
+  border: 1px solid ${GRAY_COLORS.GRAY_300}; 
+  // ! Any content that exceeds the dimensions of the container will be hidden
   overflow: hidden;
 `;
 
-// Main component
+// * Main component
 const UseCase5Sample = () => {
-  // State variables
+  // ? State variables
+  // ! Declares a state variable 'message' initialized to an empty string, along with a function 'setMessage' to update its value
   const [message, setMessage] = useState("");
+  // ! Declares a state variable 'messages' initialized to an empty array, along with a function 'setMessages' to update its value
   const [messages, setMessages] = useState([]);
+  // ! Declares a state variable 'selectedOption' initialized to an empty string, along with a function 'setSelectedOption' to update its value
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedStatement, setSelectedStatement] = useState("");
   const [selectedCommand, setSelectedCommand] = useState("");
@@ -36,7 +48,8 @@ const UseCase5Sample = () => {
   // Function to handle sending a message
   const handleSendMessage = () => {
     // Check if message is empty
-    if (!message.trim()) return;
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage) return;
 
     // Add user message to messages state
     setMessages([...messages, { text: message, isUser: true }]);
@@ -91,7 +104,7 @@ const UseCase5Sample = () => {
           handleStatementChange={handleStatementChange}
           selectedStatement={selectedStatement}
         />
-        {selectedStatement === "Generate Test Case For" ? ( // Check if the selected statement is "Generate Test Case For"
+        {selectedStatement === "Generate Test Case in" ? ( // Check if the selected statement is "Generate Test Case in"
           <>
             <br />
             {/* Render the Test Case Statement component */}
@@ -101,7 +114,7 @@ const UseCase5Sample = () => {
             />
           </>
         ) : null}{" "}
-        {/* If the selected statement is not "Generate Test Case For", render nothing */}
+        {/* If the selected statement is not "Generate Test Case in", render nothing */}
         {selectedStatement === "Convert To" ? ( // Check if the selected statement is "Convert To"
           <>
             <br />
@@ -126,4 +139,5 @@ const UseCase5Sample = () => {
   );
 };
 
+// ! Export the UseCase5Final component for use in the application
 export default UseCase5Sample;
