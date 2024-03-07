@@ -23,7 +23,7 @@ const UseCase6Sample = () => {
 
     // Function to handle sending messages
     const handleSendMessage = () => {
-        if (!message) return;
+        if (!message.trim()) return;
 
         setMessages([...messages, { text: message, isUser: true }]);
         setMessage('');

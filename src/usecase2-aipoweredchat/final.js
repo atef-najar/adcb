@@ -27,7 +27,7 @@ const UseCase2Final = () => {
     /* Function to handle sending messages
     This Function is responsible for passing message to LLM and handling messages to show in chat */
     const handleSendMessage = () => {
-        if (!message) return; // If the message is empty, return
+        if (!message.trim()) return; // If the message is empty, return
 
         /* Add user message to both message lists */
         // for gpt-4
