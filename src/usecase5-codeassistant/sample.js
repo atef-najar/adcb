@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Container, Button, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom/dist";
+import { Container } from "@mui/material";
 
 // Importing custom components
 import MessageList from "../components/MessageList";
@@ -45,7 +44,6 @@ const UseCase5Sample = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedStatement, setSelectedStatement] = useState("");
   const [selectedCommand, setSelectedCommand] = useState("");
-  const navigate = useNavigate();
 
   // Function to handle sending a message
   const handleSendMessage = () => {
@@ -88,11 +86,6 @@ const UseCase5Sample = () => {
   // Function to handle input change
   const handleInputChange = (event) => {
     setMessage(event.target.value);
-  };
-
-  // Function to navigate to Usecase5 Main page
-  const handleAssistant = () => {
-    navigate("/UseCase5/final");
   };
 
   return (

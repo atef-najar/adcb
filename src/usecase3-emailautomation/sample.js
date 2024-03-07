@@ -40,7 +40,7 @@ const UseCase3Sample = () => {
 
     return (
         <AppContainer>
-            <h1>avm-ai-poweredchat</h1>
+            <h1>avm-ai-email-automation</h1>
             {/* Component to display messages */}
             <MessageList messages={messages} />
             {/* File upload button */}

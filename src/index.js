@@ -11,6 +11,8 @@ import UseCase5Final from "./usecase5-codeassistant/final.js";
 import UseCase5Sample from "./usecase5-codeassistant/sample.js";
 import Sidebar from "./components/Sidebar";
 import routes from "./constants/Routes";
+import UseCase6Sample from './usecase6-procurementStatusTrackingSystem/sample.js';
+import UseCase6Final from './usecase6-procurementStatusTrackingSystem/final.js';
 
 ReactDOM.render(
   <div style={{ display: "flex" }}>
@@ -42,6 +44,14 @@ ReactDOM.render(
           <Route
             path={routes.useCase5Final.route}
             element={<UseCase5Final />}
+          />
+          <Route
+            path={routes.useCase6Sample.route}
+            element={<UseCase6Sample />}
+          />
+          <Route
+            path={routes.useCase6Final.route}
+            element={<UseCase6Final />}
           />
         </Routes>
       </BrowserRouter>

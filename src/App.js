@@ -23,7 +23,7 @@ const AppContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   max-width: 700px;
-  max-height: 80vh;
+  max-height: 90vh;
   border-radius: 30px;
   border: 1px solid ${GRAY_COLORS.GRAY_300};
   overflow: hidden;
@@ -45,12 +45,13 @@ const App = () => {
   const [maxTokens, setMaxTokens] = useState(1024);
 
   // Function to send request data to the API for AI response
+  // requestData - body of the request (json)
+  // You can find multiple requestData examples in the README.md file
   const getAiResponse = (requestData) => {
-    return api.post("/conversations/avm-completion", requestData);
+    return api.post("/conversations/avm-completion-secure", requestData);
   };
 
-  console.log("messages ------------------->> ", messages);
-  // Function to handle sending a message and receiving an AI response
+  // Function to handle resetting the local state to the initial state
   const handleResetState = () => {
     setMessage("");
     setMessages([]);
@@ -60,7 +61,7 @@ const App = () => {
 
   // Function to handle sending a message and receiving an AI response
   const handleSendMessage = async () => {
-    if (!message) return; // Prevent sending empty messages
+    if (!message.trim()) return; // Prevent sending empty messages
 
     // Add the user's message to the messages list
     const newMessagesArray = [...messages];
@@ -74,6 +75,7 @@ const App = () => {
     const requestData = {
       providerName: selectedProvider,
       modelVersion: selectedOption,
+      // We map the messages array to match the schema described in the README.md
       messages: newMessagesArray.map((message) => {
         return {
           content: message.text,
@@ -112,6 +114,9 @@ const App = () => {
   };
 
   // Handlers for changing settings (AI model option, temperature, max tokens)
+  // We will destructure event to get the value
+  // Then we match it to one of our Supported Models, inside the SupportedModels Array
+  // Afterward we set the local state to match the provider and modelVersion of the selectedModel
   const handleOptionChange = (event) => {
     const selectedModel = SupportedModels.find(
       (model) => model.value === event.target.value,
@@ -120,6 +125,8 @@ const App = () => {
     setSelectedOption(event.target.value);
   };
 
+  // Handler for changing the message input text
+  // We will destructure event to get the value then set it in our local "message" state
   const handleInputChange = (event) => {
     setMessage(event.target.value);
   };
@@ -150,7 +157,8 @@ const App = () => {
         maxTokens={maxTokens}
         setMaxTokens={setMaxTokens}
       />
-      <MessageList messages={messages} />
+      {/*provider prop is needed for using the image model from Stability AI */}
+      <MessageList messages={messages} provider={selectedProvider} />
       <MessageInput
         message={message}
         onMessageChange={handleInputChange}
