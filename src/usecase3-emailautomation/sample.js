@@ -10,20 +10,36 @@ const AppContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     max-width: 700px;
-    max-height: 80vh;
+    max-height: auto;
     border-radius: 30px;
     border: 1px solid ${GRAY_COLORS.GRAY_300};
     overflow: hidden;
 `;
 
-const FileInput = styled.input`
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-`;
+const StyledFileInput = styled.div`
+    text-align: center;
+    border: 3px dashed rgb(210, 227, 244);
+    padding: 1.5rem;
+    position: relative;
+    cursor: pointer;
+    p {
+        font-size: 0.87rem;
+        margin-top: 10px;
+        color: #bbcada;
+    }
+    input {
+        display: block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        cursor: pointer;
+    }  
+`
 
 const UseCase3Sample = () => {
     // State to store messages
@@ -44,20 +60,14 @@ const UseCase3Sample = () => {
             {/* Component to display messages */}
             <MessageList messages={messages} />
             {/* File upload button */}
-            <label htmlFor="file-input">
+            <StyledFileInput >
                 <AttachFileIcon sx={{ width: '30px', height: '30px', margin: '10px' }} />
-            </label>
-            <FileInput
-                type="file"
-                id={'file-input'}
-                name={'file-input'}
-                onChange={onUploadDocument}
-                style={{ display: 'none' }}
-                onClick={(event) => {
-                    event.target.value = null;
-                }}
-                accept={'.csv'}
-            />
+                <h3>Click box to upload</h3>
+                <p>Maximun file size 10mb</p>
+                <input type="file" id={'file-input'}
+                    name={'file-input'}
+                    onChange={onUploadDocument} accept={'.csv'} />
+            </StyledFileInput>
         </AppContainer>
     );
 }
