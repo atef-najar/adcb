@@ -55,7 +55,7 @@ const Settings = ({
   const [areSlidersVisible, setAreSlidersVisible] = useState(false);
 
   // Function to toggle the areSlidersVisible state
-  const handleChange = () => {
+  const handleToggleSlidersVisibility = () => {
     setAreSlidersVisible((prev) => !prev);
   };
 
@@ -79,7 +79,12 @@ const Settings = ({
 
       {/* Toggle switch for showing/hiding advanced settings */}
       <FormControlLabel
-        control={<Switch checked={areSlidersVisible} onChange={handleChange} />}
+        control={
+          <Switch
+            checked={areSlidersVisible}
+            onChange={handleToggleSlidersVisibility}
+          />
+        }
         label="Show advanced settings"
       />
 
