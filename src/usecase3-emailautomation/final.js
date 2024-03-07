@@ -12,7 +12,7 @@ const AppContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     max-width: 700px;
-    max-height: 80vh;
+    max-height: auto;
     border-radius: 30px;
     border: 1px solid ${GRAY_COLORS.GRAY_300};
     overflow: hidden;
@@ -22,13 +22,16 @@ const AppContainer = styled(Container)`
 const StyledFileInput = styled.div`
     text-align: center;
     border: 3px dashed rgb(210, 227, 244);
-    padding: 1.5rem;
+    padding: 1rem;
     position: relative;
     cursor: pointer;
+    margin: 20px 0px;
+    border-radius: 20px;
     p {
         font-size: 0.87rem;
         margin-top: 10px;
         color: #bbcada;
+        margin: 0px
     }
     input {
         display: block;
@@ -116,7 +119,7 @@ const UseCase3Final = () => {
             <MessageList messages={messages} />
             {/* File upload button */}
             <StyledFileInput >
-                <AttachFileIcon sx={{ width: '30px', height: '30px', margin: '10px' }} />
+                <AttachFileIcon sx={{ width: '30px', height: '30px' }} />
                 <h3>Click box to upload</h3>
                 <p>Maximun file size 10mb</p>
                 <input type="file" id={'file-input'}

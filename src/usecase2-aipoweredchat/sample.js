@@ -11,7 +11,7 @@ const AppContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     max-width: 700px;
-    max-height: 80vh;
+    max-height: auto;
     border-radius: 30px;
     border: 1px solid ${GRAY_COLORS.GRAY_300};
     overflow: hidden;
