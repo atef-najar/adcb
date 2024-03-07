@@ -13,7 +13,12 @@
 ### Possible errors
 If you run into any problems during the `npm install` `npm start` steps.
 It is likely due to the installed npm version, you might have to downgrade it. Fixes:
-    
+
+### Fix: 1
+- run ```npm config set legacy-peer-deps true"```
+- now you can repeat the `npm install` `npm start` steps
+
+### Fix: 2    
 - use ```nvm``` (Node Version Manager), instruction for installation found [here](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
 - run `nvm use`, it will try and use the version specified in the ```.nvmrc``` file, if the required version is not installed on your machine, it will provide you the steps required for downloading it (```nvm install v20.4.0```). After you downloaded it, run `nvm use` again
 - now you can repeat the `npm install` `npm start` steps.
