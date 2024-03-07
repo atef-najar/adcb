@@ -20,7 +20,6 @@ const AppContainer = styled(Container)`
 const UseCase2Sample = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
-    const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle sending messages
     const handleSendMessage = () => {
@@ -29,13 +28,11 @@ const UseCase2Sample = () => {
         // Add user message
         setMessages([...messages, { text: message, isUser: true }]);
         setMessage('');
-        setIsLoading(true);
 
         // Mock AI response after a delay
         setTimeout(() => {
             const aiResponse = "This is a mock response from AI.";
             setMessages(messages => [...messages, { text: aiResponse, isUser: false }]);
-            setIsLoading(false);
         }, 1000); // Mock response delay
     };
 
@@ -46,7 +43,7 @@ const UseCase2Sample = () => {
     return (
         <AppContainer>
             <h1>avm-ai-poweredchat</h1>
-            <MessageList messages={messages} isLoading={isLoading}/>
+            <MessageList messages={messages} />
             <MessageInput
                 message={message}
                 onMessageChange={handleInputChange}
