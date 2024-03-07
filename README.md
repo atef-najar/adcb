@@ -15,7 +15,7 @@ If you run into any problems during the `npm install` `npm start` steps.
 It is likely due to the installed npm version, you might have to downgrade it. Fixes:
 
 ### Fix: 1
-- run ```npm config set legacy-peer-deps true"```
+- run ```npm config set legacy-peer-deps true```
 - now you can repeat the `npm install` `npm start` steps
 
 ### Fix: 2    
