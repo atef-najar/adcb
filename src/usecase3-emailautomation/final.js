@@ -29,7 +29,6 @@ const StyledFileInput = styled.div`
     border-radius: 20px;
     p {
         font-size: 0.87rem;
-        margin-top: 10px;
         color: #bbcada;
         margin: 0px
     }
