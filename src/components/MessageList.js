@@ -14,6 +14,7 @@ const MessageContainer = styled(Paper)(({ isuser }) => ({
   maxWidth: "80%", // Limits maximum width to 80% of parent container
   padding: 8, // Padding inside the container
   marginTop: 12, // Top margin
+  overflowY: "auto",
 }));
 
 // Styled component for the container that holds all messages
