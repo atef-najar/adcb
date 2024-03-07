@@ -4,8 +4,9 @@
 
 #
 # Install Prerequisites
+* ### Have git installed - if you want to use the terminal for git commands, otherwise you can also donwload the zip file of the hackathon repository. Guide to install git [here](https://github.com/git-guides/install-git)
 * ### Have node.js installed, if you do not have it installed visit the  [official Node.js page](https://nodejs.org/en/download/) and download it. We recommend downloading the version [v20.4.0](https://nodejs.org/dist/v20.4.0/)
-* ### Have npm installed
+* ### Have npm installed - it will come installed with node.js
 
 #
 
