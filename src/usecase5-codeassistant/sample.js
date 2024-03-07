@@ -36,7 +36,7 @@ const UseCase5Sample = () => {
   // Function to handle sending a message
   const handleSendMessage = () => {
     // Check if message is empty
-    if (!message) return;
+    if (!message.trim()) return;
 
     // Add user message to messages state
     setMessages([...messages, { text: message, isUser: true }]);

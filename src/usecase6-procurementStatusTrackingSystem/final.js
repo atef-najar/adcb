@@ -31,7 +31,7 @@ const UseCase6Final = () => {
     /* Function to handle sending messages
     This Function is responsible for passing message to LLM and handling messages to show in chat */
     const handleSendMessage = () => {
-        if (!message) return; // If the message is empty, return
+        if (!message.trim()) return; // If the message is empty, return
 
         // Add user message to message lists
         const newMessagesArray = [...messages]; // creating new array for storing messages from state

@@ -23,7 +23,7 @@ const UseCase2Sample = () => {
 
     // Function to handle sending messages
     const handleSendMessage = () => {
-        if (!message) return;
+        if (!message.trim()) return;
 
         // Add user message
         setMessages([...messages, { text: message, isUser: true }]);

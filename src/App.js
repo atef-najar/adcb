@@ -61,7 +61,7 @@ const App = () => {
 
   // Function to handle sending a message and receiving an AI response
   const handleSendMessage = async () => {
-    if (!message) return; // Prevent sending empty messages
+    if (!message.trim()) return; // Prevent sending empty messages
 
     // Add the user's message to the messages list
     const newMessagesArray = [...messages];

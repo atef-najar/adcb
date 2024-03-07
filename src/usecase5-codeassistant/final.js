@@ -40,7 +40,7 @@ const UseCase5Final = () => {
   // Function to handle sending a message
   const handleSendMessage = () => {
     // Check if message is empty
-    if (!message) return;
+    if (!message.trim()) return;
 
     // Check if selected option is empty
     if (selectedOption === "") return;
