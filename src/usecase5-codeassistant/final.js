@@ -15,39 +15,57 @@ import CodeConvertion from "../components/CodeConvertion";
 import api from "../ApiConfig";
 import { SupportedModels } from "../constants/ai-models";
 
-// Styled component for the main application container
+// * Styled component for the main application container
 const AppContainer = styled(Container)`
-  height: fit-content;
-  margin-top: 120px;
+// ! The height of the container will adjust to fit its content
+  height: fit-content; 
+  // ! Adds a margin of 120 pixels on the top
+  margin-top: 120px; 
+  // ! Sets the container to use flexbox layout
   display: flex;
-  flex-direction: column;
-  max-width: 700px;
-  border-radius: 30px;
-  border: 1px solid ${GRAY_COLORS.GRAY_300};
+  // ! Items inside the container will be stacked vertically 
+  flex-direction: column; 
+  // ! Sets the maximum width of the container to 700 pixels
+  max-width: 700px; 
+  // ! Applies a border radius of 30 pixels to the corners of the container
+  border-radius: 30px; 
+  // ! Adds a 1 pixel solid border with the color defined in GRAY_COLORS.GRAY_300
+  border: 1px solid ${GRAY_COLORS.GRAY_300}; 
+  // ! Any content that exceeds the dimensions of the container will be hidden
   overflow: hidden;
 `;
 
-// Main component
+// * Main component
 const UseCase5Final = () => {
-  // State variables
+  // ? State variables
+  // ! Declares a state variable 'message' initialized to an empty string, along with a function 'setMessage' to update its value
   const [message, setMessage] = useState("");
+  // ! Declares a state variable 'messages' initialized to an empty array, along with a function 'setMessages' to update its value
   const [messages, setMessages] = useState([]);
+  // ! Declares a state variable 'selectedOption' initialized to an empty string, along with a function 'setSelectedOption' to update its value
   const [selectedOption, setSelectedOption] = useState("");
+  // ! Declares a state variable 'selectedProvider' initialized to an empty string, along with a function 'setSelectedProvider' to update its value
   const [selectedProvider, setSelectedProvider] = useState("");
+  // ! Declares a state variable 'selectedStatement' initialized to an empty string, along with a function 'setSelectedStatement' to update its value
   const [selectedStatement, setSelectedStatement] = useState("");
+  // ! Declares a state variable 'selectedCommand' initialized to an empty string, along with a function 'setSelectedCommand' to update its value
   const [selectedCommand, setSelectedCommand] = useState("");
+  // ! Declares a state variable 'temperature' initialized to 0.7, along with a function 'setTemperature' to update its value
   const [temperature, setTemperature] = useState(0.7);
+  // ! Declares a state variable 'maxTokens' initialized to 1024, along with a function 'setMaxTokens' to update its value
   const [maxTokens, setMaxTokens] = useState(1024);
 
-  // Function to send request data to the API for AI response
+  //  Function to send request data to the API for AI response
   const getAiResponse = (requestData) => {
     return api.post("/conversations/avm-completion", requestData);
   };
 
-  // Function to handle sending a message
+  //  Function to handle sending a message
   const handleSendMessage = async () => {
+
     // Check if message is empty
-    if (!message) return;
+    const trimmedMessage = message.trim();
+    if (!trimmedMessage) return;
 
     // Check if selected option is empty
     if (selectedOption === "") return;
@@ -139,6 +157,11 @@ const UseCase5Final = () => {
       <Settings
         handleOptionChange={handleOptionChange}
         selectedOption={selectedOption}
+        includeSliders={true}
+        temperature={temperature}
+        setTemperature={setTemperature}
+        maxTokens={maxTokens}
+        setMaxTokens={setMaxTokens}
       />
       <br />
       {/* Command statement component */}
@@ -179,5 +202,5 @@ const UseCase5Final = () => {
     </AppContainer>
   );
 };
-
+// ! Export the UseCase5Final component for use in the application
 export default UseCase5Final;
