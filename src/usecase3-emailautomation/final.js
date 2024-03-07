@@ -6,6 +6,7 @@ import MessageList from '../components/MessageList';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import api from '../ApiConfig';
 
+// Styling the main container using styled components
 const AppContainer = styled(Container)`
     margin-top: 120px;
     display: flex;
@@ -27,28 +28,34 @@ const MyInput = styled.input`
   z-index: -1;
 `;
 
+/* This is the main component which is used for rendering data */
 const UseCase3Final = () => {
     // State to store messages
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([]); // State variable for the user's message
 
-    // Function to handle file upload
+    /* Function to handle file upload
+    Function is used to upload file and extract data from the file like file name, file buffer data (base64 encoded).
+    and pass the file to the LLM API and set response accordingly. */
     const onUploadDocument = async (e) => {
-        const files = e?.target?.files;
-        const file = files && files.length > 0 && files[0];
-        if (!file) {
-            return;
-        }
-        const reader = new FileReader();
+        const newMessagesArray = [...messages]; // creating new array for storing messages from state
+        setMessages([...newMessagesArray]); //setting updated message array to the state
 
+        // extracting file data from uploaded file
+        const files = e?.target?.files; //getting uploaded file from files array
+        const file = files && files.length > 0 && files[0];
+        if (!file) return; // If the file is empty, return
+
+        // reading the file data
+        const reader = new FileReader(); //reading the data of file
         reader.onload = (e) => {
-            const base64 = e.target.result.split(',')[1];
+            const base64 = e.target.result.split(',')[1]; // getting the base64 part from the result
             const requestData = {
-                "providerName": "file",
-                "modelVersion": "gpt-4-file",
-                "roomId": "roomId",
+                "providerName": "file", // using file provider because of file uploading
+                "modelVersion": "gpt-4-file", // using file model to use file upload option 
+                "roomId": "12345", // static room key
                 "messages": [{
-                    "content": "create a short personalized email for each person use the Note field to personalize the note",
-                    "role": "user"
+                    "content": "create a short personalized email for each person use the Note field to personalize the note", // asking the LLM API to generate the personalized email for each entry in .csv file using note column
+                    "role": "user" // role is user because we are asking question to system
                 }],
                 "settings": {
                     "maxTokens": 1024,
@@ -58,10 +65,26 @@ const UseCase3Final = () => {
                 }
             };
 
+            // Add the loading message, this is for the loading state, this is optional
+            newMessagesArray.push({ text: "", isUser: false, loading: true });
+            setMessages([...newMessagesArray]); //setting updated message array to the state
+
+            // calling LLM API
             const aiResponse = api.post('/conversations/avm-completion', requestData);
             aiResponse.then((res) => {
-                // Add AI response to messages state
-                setMessages(messages => [...messages, { text: res.data.message, isUser: false }]);
+                /* We override the loading message, with the one we got from the API Request
+                Only needed because we used the loading state, otherwise we could've simply used this:
+                setMessages((messages) => [
+                  ...messages,
+                  { text: aiMessage, isUser: false },
+                ]); */
+                newMessagesArray[newMessagesArray.length - 1] = {
+                    text: res.data.message,
+                    isUser: false,
+                };
+              
+                // setting the latest state
+                setMessages([...newMessagesArray]);
             })
             .catch((error) => {
                 console.log("something went wrong", error)

@@ -20,7 +20,6 @@ const AppContainer = styled(Container)`
 const UseCase6Sample = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
-    const [isLoading, setIsLoading] = useState(false);
 
     // Function to handle sending messages
     const handleSendMessage = () => {
@@ -28,13 +27,11 @@ const UseCase6Sample = () => {
 
         setMessages([...messages, { text: message, isUser: true }]);
         setMessage('');
-        setIsLoading(true);
 
         setTimeout(() => {
             const aiResponse = "This is a mock response from AI.";
             // Add AI response to messages state
             setMessages(messages => [...messages, { text: aiResponse, isUser: false }]);
-            setIsLoading(false)
         }, 1000); // Mock response delay
     };
 
@@ -44,12 +41,10 @@ const UseCase6Sample = () => {
     };
 
     const handleFileUpload=(data)=>{
-        setIsLoading(true)
         setTimeout(() => {
             const aiResponse = "This is a mock response from AI.";
             // Add AI response to messages state
             setMessages(messages => [...messages, { text: aiResponse, isUser: false }]);
-            setIsLoading(false)
         }, 1000); // Mock response delay
     }
 
@@ -57,7 +52,7 @@ const UseCase6Sample = () => {
         <AppContainer>
             <h1>avm-ai-procurement-status-tracking-system</h1>
             {/* Display message lists for GPT-4 and Amazon Titan */}
-            <MessageList messages={messages} isLoading={isLoading}/>
+            <MessageList messages={messages} />
                 
             <Box display='flex' width='100%' alignItems='center'>
                 <FileUpload getMessages={handleFileUpload} />
