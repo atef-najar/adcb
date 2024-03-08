@@ -2,6 +2,23 @@
 
 ### Readme Files for all use cases be found [here](https://github.com/addvaluemachine/avm-genai-hackathon-usecases)
 
+
+## Those with Amazon Linux Machines.
+######connect to the box
+ssh ec2-user@54.166.146.10 -i hk1.pem
+
+######execute the following commands
+sudo su
+yum install git npm
+git clone https://github.com/addvaluemachine/avm-genai-starter
+cd avm-genai-starter/
+
+npm config set legacy-peer-deps true
+npm install
+npm start
+
+
+
 #
 # Install Prerequisites
 * ### Have git installed - if you want to use the terminal for git commands, otherwise you can also donwload the zip file of the hackathon repository. Guide to install git [here](https://github.com/git-guides/install-git)
@@ -38,6 +55,19 @@ You may also see any lint errors in the console.
 
 
 
+## Those with Amazon Linux Machines.
+######connect to the box
+ssh ec2-user@54.166.146.10 -i hk1.pem
+
+######execute the following commands
+sudo su
+yum install git npm
+git clone https://github.com/addvaluemachine/avm-genai-starter
+cd avm-genai-starter/
+
+npm config set legacy-peer-deps true
+npm install
+npm start
 
 
 
