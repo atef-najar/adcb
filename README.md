@@ -2,6 +2,22 @@
 
 ### Readme Files for all use cases be found [here](https://github.com/addvaluemachine/avm-genai-hackathon-usecases)
 
+Team 1	54.211.23.29
+Team 2	52.2.140.230
+Team 3	3.91.77.112
+Team 4	3.90.155.244
+Team 5	3.82.64.179
+Team 6	3.91.236.185
+Team 7	54.205.202.58
+Team 8	3.90.224.162
+Team 9	54.224.105.175
+Team 10	35.170.50.254
+Team 11	54.236.15.167
+Team 12	18.212.111.25
+Team 13	54.224.17.36
+Team 14	54.221.86.252
+
+
 
 ## Those with Amazon Linux Machines.
 ######connect to the box
