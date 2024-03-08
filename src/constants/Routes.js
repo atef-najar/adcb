@@ -10,7 +10,7 @@ const routes = {
   },
   useCase2FinalInsecure: {
     route: "/aiPowerwedChat/final-insecure",
-    name: "Ai Powered Chat Final Insecure",
+    name: "Ai Powered Chat Claude v2",
   },
   useCase2FinalImg: {
     route: "/aiPowerwedChat/final-img",

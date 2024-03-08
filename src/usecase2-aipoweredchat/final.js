@@ -28,6 +28,7 @@ const AppContainer = styled(Container)`
 const UseCase2Final = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
+    const [messagesClaude, setMessagesClaude] = useState([]); // State variable for GPT-4 messages
 
     const getAiResponse = (requestData) => {
         return api.post(API_ENDPOINT, requestData);
@@ -41,6 +42,7 @@ const UseCase2Final = () => {
         const newMessagesArray = [...messages];
         newMessagesArray.push({ text: message, isUser: true });
         setMessages([...newMessagesArray]);
+        setMessagesClaude([...newMessagesArray]);
         setMessage('');
 
         // Prepare request data for the API call
@@ -62,6 +64,7 @@ const UseCase2Final = () => {
 
         newMessagesArray.push({ text: "", isUser: false, loading: true });
         setMessages([...newMessagesArray]);
+        setMessagesClaude([...newMessagesArray]);
 
         const aiResponse = await getAiResponse(requestData);
             const {
@@ -75,6 +78,34 @@ const UseCase2Final = () => {
 
                 // setting the latest state
                 setMessages([...newMessagesArray]);
+
+        const claudeRequestData = {
+          providerName: "cohere",
+          modelVersion: "command",
+          // We map the messages array to match the schema described in the README.md
+          messages: newMessagesArray.map((message) => {
+            return {
+              content: message.text,
+              role: message.isUser ? "user" : "system",
+            };
+          }),
+          settings: {
+            maxTokens: MAX_TOKENS,
+            temperature: TEMPERATURE,
+          },
+        };
+        const clauseAiResponse = await getAiResponse(claudeRequestData);
+            const {
+              data: { message: claudeAiMessage },
+            } = clauseAiResponse;
+
+             newMessagesArray[newMessagesArray.length - 1] = {
+                  text: claudeAiMessage,
+                  isUser: false,
+                };
+
+                // setting the latest state
+                setMessagesClaude([...newMessagesArray]);
     };
 
     const handleInputChange = (event) => {
@@ -83,8 +114,11 @@ const UseCase2Final = () => {
 
     return (
         <AppContainer>
-            <h1>avm-ai-poweredchat</h1>
+            <h1>avm-ai-poweredchat GPT</h1>
             <MessageList messages={messages} />
+
+            <h1>avm-ai-poweredchat cohere</h1>
+            <MessageList messages={messagesClaude} />
             <MessageInput
                 message={message}
                 onMessageChange={handleInputChange}

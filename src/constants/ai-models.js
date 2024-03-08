@@ -24,6 +24,11 @@ export const SupportedModels = [
     provider: "open_ai",
   },
   {
+      displayName: "Claude v2",
+      value: "anthropic.claude-v2",
+      provider: "anthropic",
+    },
+  {
     displayName: "Titan Text Large",
     value: "amazon.titan-text-express-v1",
     provider: "amazon",
@@ -48,11 +53,7 @@ export const SupportedModels = [
     value: "command-light-nightly",
     provider: "cohere",
   },
-  {
-    displayName: "Claude v2",
-    value: "anthropic.claude-v2",
-    provider: "anthropic",
-  },
+  ,
   {
     displayName: "Claude v1",
     value: "anthropic.claude-v1",

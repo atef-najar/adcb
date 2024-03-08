@@ -83,7 +83,7 @@ const UseCase2FinalInsecure = () => {
 
     return (
         <AppContainer>
-            <h1>avm-ai-poweredchat</h1>
+            <h1>avm-ai-poweredchat Claude v2</h1>
             <MessageList messages={messages} />
             <MessageInput
                 message={message}
