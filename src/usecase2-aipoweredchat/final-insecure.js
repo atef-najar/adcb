@@ -9,10 +9,10 @@ import MessageInput from '../components/Input';
 
 import api from "../ApiConfig";
 
-const API_ENDPOINT = "/conversations/avm-completion-secure";
-const MODEL = SupportedModels[SupportedModels]; // Change the model here.
-const MAX_TOKENS = 2048;
-const TEMPERATURE = 0.9;
+const API_ENDPOINT = "/conversations/avm-completion";
+const MODEL = SupportedModels[0]; // Change the model here.
+const MAX_TOKENS = 1024;
+const TEMPERATURE = 0.7;
 
 const AppContainer = styled(Container)`
     margin-top: 120px;
@@ -25,7 +25,7 @@ const AppContainer = styled(Container)`
     overflow: hidden;
 `;
 
-const UseCase2Final = () => {
+const UseCase2FinalInsecure = () => {
     const [message, setMessage] = useState(''); // State variable for the user's message
     const [messages, setMessages] = useState([]); // State variable for GPT-4 messages
 
@@ -94,4 +94,4 @@ const UseCase2Final = () => {
     );
 }
 
-export default UseCase2Final;
+export default UseCase2FinalInsecure;

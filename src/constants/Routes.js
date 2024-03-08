@@ -8,6 +8,14 @@ const routes = {
     route: "/aiPowerwedChat/final",
     name: "Ai Powered Chat Final",
   },
+  useCase2FinalInsecure: {
+    route: "/aiPowerwedChat/final-insecure",
+    name: "Ai Powered Chat Final Insecure",
+  },
+  useCase2FinalImg: {
+    route: "/aiPowerwedChat/final-img",
+    name: "Ai Powered Chat Final Image",
+  },
   useCase3Sample: {
     route: "/emailAutomation/sample",
     name: "Email Automation Sample",

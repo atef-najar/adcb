@@ -59,11 +59,6 @@ export const SupportedModels = [
     provider: "anthropic",
   },
   {
-    displayName: "Stability",
-    value: "stability.stable-diffusion-xl-v0",
-    provider: "stability",
-  },
-  {
     displayName: "Llama 2 Chat 70B",
     value: "meta.llama2-70b-chat-v1",
     provider: "meta",
@@ -73,4 +68,9 @@ export const SupportedModels = [
     value: "gpt-3.5-turbo",
     provider: "open_ai",
   },
+    {
+        displayName: "Stability",
+        value: "stability.stable-diffusion-xl-v0",
+        provider: "stability",
+      }
 ];

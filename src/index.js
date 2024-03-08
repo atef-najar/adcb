@@ -5,6 +5,8 @@ import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UseCase2Sample from "./usecase2-aipoweredchat/sample.js";
 import UseCase2Final from "./usecase2-aipoweredchat/final.js";
+import UseCase2FinalInsecure from "./usecase2-aipoweredchat/final-insecure.js";
+import UseCase2FinalImg from "./usecase2-aipoweredchat/final-img.js";
 import UseCase3Sample from "./usecase3-emailautomation/sample.js";
 import UseCase3Final from "./usecase3-emailautomation/final.js";
 import UseCase5Final from "./usecase5-codeassistant/final.js";
@@ -28,6 +30,13 @@ ReactDOM.render(
           <Route
             path={routes.useCase2Final.route}
             element={<UseCase2Final />}
+          />
+          <Route
+            path={routes.useCase2FinalInsecure.route}
+            element={<UseCase2FinalInsecure />}
+          /><Route
+            path={routes.useCase2FinalImg.route}
+            element={<UseCase2FinalImg />}
           />
           <Route
             path={routes.useCase3Sample.route}
