@@ -10,7 +10,7 @@ import MessageInput from '../components/Input';
 import api from "../ApiConfig";
 
 const API_ENDPOINT = "/conversations/avm-completion";
-const MODEL = SupportedModels[0]; // Change the model here.
+const MODEL = SupportedModels[1]; // Change the model here.
 const MAX_TOKENS = 1024;
 const TEMPERATURE = 0.7;
 

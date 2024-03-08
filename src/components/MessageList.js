@@ -62,6 +62,7 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
 
 // Message component for rendering individual messages with markdown support
 const Message = ({ text, isUser, loading, provider }) => {
+console.log(provider)
   return (
     <MessageContainer elevation={3} isuser={isUser ? 1 : 0}>
       {/* Render the spinner if the message is loading */}

@@ -39,7 +39,7 @@ const UseCase2FinalImage = () => {
 
         // Add user message
         const newMessagesArray = [...messages];
-        newMessagesArray.push({ text: message, isUser: true });
+        newMessagesArray.push({ text: message, isUser: false });
         setMessages([...newMessagesArray]);
         setMessage('');
 
@@ -51,7 +51,7 @@ const UseCase2FinalImage = () => {
           messages: newMessagesArray.map((message) => {
             return {
               content: message.text,
-              role: message.isUser ? "user" : "system",
+              role: "system",
             };
           }),
           settings: {
@@ -60,7 +60,7 @@ const UseCase2FinalImage = () => {
           },
         };
 
-        newMessagesArray.push({ text: "", isUser: false, loading: true });
+        newMessagesArray.push({ text: "", isUser: true, loading: true });
         setMessages([...newMessagesArray]);
 
         const aiResponse = await getAiResponse(requestData);
@@ -84,7 +84,7 @@ const UseCase2FinalImage = () => {
     return (
         <AppContainer>
             <h1>avm-ai-poweredchat</h1>
-            <MessageList messages={messages} />
+            <MessageList messages={messages} provider={MODEL.provider}/>
             <MessageInput
                 message={message}
                 onMessageChange={handleInputChange}
